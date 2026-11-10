@@ -1,11 +1,11 @@
 {shop_name}
 {reference}
 
-Hello {customer_name},
+Dzień dobry {customer_name},
 
-We confirm receipt of your statement of withdrawal from the contract for order {order_reference}.
-The acknowledgement is attached as a PDF.
+potwierdzamy otrzymanie Twojego oświadczenia o odstąpieniu od umowy dla zamówienia {order_reference}.
+Potwierdzenie otrzymania na trwałym nośniku przesyłamy w załączniku jako plik PDF.
 
-No reason was required and none is needed for the statement to be valid.
+Podanie przyczyny nie było wymagane i nie jest potrzebne, aby oświadczenie było ważne.
 
 {shop_url}

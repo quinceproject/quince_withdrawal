@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en-US" target-language="pl-PL" datatype="plaintext" original="ModulesQuincewithdrawalAdmin">
+    <body>
+
+      <trans-unit id="quince.withdrawal.name">
+        <source>Quince Withdrawal</source>
+        <target>Quince: odstąpienie od umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.desc">
+        <source>The right of withdrawal from a distance contract: an online statement form, an acknowledgement on a durable medium, and the deadlines and exceptions the law sets for it.</source>
+        <target>Prawo odstąpienia od umowy zawartej na odległość: formularz oświadczenia online, potwierdzenie otrzymania na trwałym nośniku oraz terminy i wyjątki, które określa ustawa.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.uninstall">
+        <source>Uninstalling deletes every withdrawal statement on record. Export them first if you need to keep a copy.</source>
+        <target>Odinstalowanie usuwa wszystkie zapisane oświadczenia o odstąpieniu od umowy. Jeśli potrzebujesz ich kopii, najpierw je wyeksportuj.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.csrf">
+        <source>Invalid security token, please try again.</source>
+        <target>Nieprawidłowy token bezpieczeństwa, spróbuj ponownie.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.saved">
+        <source>Settings saved.</source>
+        <target>Ustawienia zapisane.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.not-found">
+        <source>That statement does not exist.</source>
+        <target>To oświadczenie nie istnieje.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.confirmed-msg">
+        <source>Statement confirmed.</source>
+        <target>Oświadczenie potwierdzone.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.rejected-msg">
+        <source>Statement rejected.</source>
+        <target>Oświadczenie odrzucone.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.reject-reason-required">
+        <source>A reason for rejection is required.</source>
+        <target>Podaj powód odrzucenia.</target>
+      </trans-unit>
+
+      <trans-unit id="quince.withdrawal.status-submitted">
+        <source>Waiting for confirmation</source>
+        <target>Czeka na potwierdzenie</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.status-acknowledged">
+        <source>Confirmed, waiting for the goods</source>
+        <target>Potwierdzone, czeka na zwrot towaru</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.status-accepted-slip">
+        <source>Accepted, issue credit slip</source>
+        <target>Przyjęte, wystaw pokwitowanie</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.status-accepted">
+        <source>Accepted, refund pending</source>
+        <target>Przyjęte, czeka na zwrot pieniędzy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.status-rejected">
+        <source>Rejected</source>
+        <target>Odrzucone</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.right">
+        <source>Right of withdrawal</source>
+        <target>Prawo odstąpienia od umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.open">
+        <source>Open</source>
+        <target>Otwórz</target>
+      </trans-unit>
+
+      <trans-unit id="quince.withdrawal.settings.intro">
+        <source>A customer can withdraw from a distance contract within the term below, with no reason required. The exception for a given product is set on the product page, under "Right of withdrawal".</source>
+        <target>Klient może odstąpić od umowy zawartej na odległość w terminie podanym niżej, bez podawania przyczyny. Wyjątek dla konkretnego produktu ustawia się na stronie produktu, w polu „Prawo odstąpienia od umowy”.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.save">
+        <source>Save changes</source>
+        <target>Zapisz zmiany</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.who">
+        <source>Who the right applies to</source>
+        <target>Komu przysługuje prawo</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.who-desc">
+        <source>The right of withdrawal belongs to a consumer, not to a business buying for its own trade.</source>
+        <target>Prawo odstąpienia od umowy przysługuje konsumentowi, a nie przedsiębiorcy, który kupuje w związku ze swoją działalnością.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.mode">
+        <source>Telling a consumer from a business</source>
+        <target>Jak odróżnić konsumenta od przedsiębiorcy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.mode-all">
+        <source>Treat every order as a consumer order</source>
+        <target>Traktuj każde zamówienie jako zamówienie konsumenta</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.mode-company">
+        <source>An order with a company name on the invoice address is a business order</source>
+        <target>Zamówienie z nazwą firmy w adresie do faktury jest zamówieniem przedsiębiorcy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.mode-group">
+        <source>An order placed by a chosen customer group is a business order</source>
+        <target>Zamówienie złożone przez wybraną grupę klientów jest zamówieniem przedsiębiorcy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.mode-hint">
+        <source>When your shop sells only to consumers, the first option is the simplest and the safest.</source>
+        <target>Gdy sklep sprzedaje tylko konsumentom, pierwsza opcja jest najprostsza i najbezpieczniejsza.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.group">
+        <source>Business customer group</source>
+        <target>Grupa klientów firmowych</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.choose-group">
+        <source>Choose a group</source>
+        <target>Wybierz grupę</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.start">
+        <source>When the deadline starts</source>
+        <target>Kiedy zaczyna biec termin</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.start-desc">
+        <source>Goods, services and digital content each start the clock at a different moment. Pick the order status your shop uses for each.</source>
+        <target>Dla towarów, usług i treści cyfrowych termin zaczyna biec w innym momencie. Wybierz status zamówienia, którego sklep używa w każdym z tych przypadków.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.goods-status">
+        <source>Goods: status that means "delivered"</source>
+        <target>Towary: status oznaczający „doręczone”</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.choose-status">
+        <source>Choose a status</source>
+        <target>Wybierz status</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.goods-hint">
+        <source>The deadline for a physical product starts the day the customer receives it, not the day it is paid for.</source>
+        <target>Dla produktu fizycznego termin zaczyna biec od dnia, w którym klient go otrzyma, a nie od dnia zapłaty.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.service-status">
+        <source>Service and digital content: status that means "contract concluded"</source>
+        <target>Usługi i treści cyfrowe: status oznaczający „umowa zawarta”</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.service-hint">
+        <source>For a service there is no delivery to wait for, so the deadline starts once the order is placed. This is usually the status your shop uses for payment accepted.</source>
+        <target>Przy usłudze nie ma doręczenia, na które trzeba czekać, więc termin zaczyna biec od złożenia zamówienia. Zwykle jest to status, którego sklep używa dla przyjętej płatności.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.digital-status">
+        <source>Digital content: status that means "delivered"</source>
+        <target>Treści cyfrowe: status oznaczający „dostarczone”</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.digital-same">
+        <source>Same as the goods status above</source>
+        <target>Taki sam jak status dla towarów powyżej</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.digital-hint">
+        <source>Decides when the digital-content exception takes effect, once the customer has agreed to an immediate delivery.</source>
+        <target>Określa, od kiedy działa wyjątek dla treści cyfrowych, gdy klient zgodził się na ich natychmiastowe dostarczenie.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.term">
+        <source>How long the deadline is</source>
+        <target>Jak długi jest termin</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.term-desc">
+        <source>The law sets 14 days as the minimum. Your shop may offer more.</source>
+        <target>Ustawa wymaga co najmniej 14 dni. Sklep może dać więcej.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.days">
+        <source>Days to withdraw</source>
+        <target>Dni na odstąpienie od umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.days-hint">
+        <source>Fourteen days is the shortest the law allows. Thirty is the longest this shop offers.</source>
+        <target>Czternaście dni to najkrótszy termin, na jaki pozwala ustawa. Trzydzieści to najdłuższy, jaki można tu ustawić.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.refund">
+        <source>Refunding the customer</source>
+        <target>Zwrot pieniędzy klientowi</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.refund-desc">
+        <source>Turn this off when invoices and credit notes come from an outside accounting system instead of PrestaShop's own.</source>
+        <target>Wyłącz, gdy faktury i faktury korygujące wystawia zewnętrzny system księgowy, a nie PrestaShop.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.settings.native-slips">
+        <source>Use PrestaShop's native Credit Slips</source>
+        <target>Używaj wbudowanych pokwitowań PrestaShop</target>
+      </trans-unit>
+
+      <trans-unit id="quince.withdrawal.mode.standard">
+        <source>Standard</source>
+        <target>Standardowe</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.mode.custom-made">
+        <source>Excluded: made to order</source>
+        <target>Wyłączone: wykonane według specyfikacji klienta</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.mode.sealed">
+        <source>Excluded: sealed for hygiene</source>
+        <target>Wyłączone: zapieczętowane ze względów higienicznych</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.mode.service">
+        <source>Service</source>
+        <target>Usługa</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.mode.digital">
+        <source>Digital content</source>
+        <target>Treści cyfrowe</target>
+      </trans-unit>
+
+      <trans-unit id="quince.withdrawal.statements">
+        <source>Statements</source>
+        <target>Oświadczenia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.reason">
+        <source>Reason:</source>
+        <target>Powód:</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.order-customer">
+        <source>Order and customer</source>
+        <target>Zamówienie i klient</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.order">
+        <source>Order</source>
+        <target>Zamówienie</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.customer">
+        <source>Customer</source>
+        <target>Klient</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.email">
+        <source>E-mail</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.ordered">
+        <source>Ordered</source>
+        <target>Data zamówienia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.products">
+        <source>Products in the order</source>
+        <target>Produkty w zamówieniu</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.whole-order">
+        <source>The statement covers the whole order. Returning only part of it is not supported yet.</source>
+        <target>Oświadczenie obejmuje całe zamówienie. Zwrot tylko części nie jest jeszcze obsługiwany.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.product">
+        <source>Product</source>
+        <target>Produkt</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.qty">
+        <source>Qty</source>
+        <target>Ilość</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.text">
+        <source>Statement text</source>
+        <target>Treść oświadczenia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.no-reason">
+        <source>The customer gave no reason. The right of withdrawal does not require one.</source>
+        <target>Klient nie podał powodu. Prawo odstąpienia od umowy tego nie wymaga.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.submitted-online">
+        <source>Submitted online %s</source>
+        <target>Złożone online %s</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.durable-medium">
+        <source>acknowledgement sent by e-mail as a PDF (durable medium)</source>
+        <target>potwierdzenie wysłane e-mailem jako PDF (trwały nośnik)</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.deadline">
+        <source>Deadline</source>
+        <target>Termin</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.kind">
+        <source>Kind</source>
+        <target>Rodzaj</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.goods">
+        <source>Goods</source>
+        <target>Towar</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.service-digital">
+        <source>Service / digital content</source>
+        <target>Usługa / treści cyfrowe</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.delivered">
+        <source>Delivered</source>
+        <target>Data doręczenia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.concluded">
+        <source>Contract concluded</source>
+        <target>Data zawarcia umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.submitted">
+        <source>Submitted</source>
+        <target>Data złożenia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.no-start">
+        <source>The order never reached the status configured in Settings, so the deadline cannot be worked out yet.</source>
+        <target>Zamówienie nie osiągnęło jeszcze statusu ustawionego w Ustawieniach, więc terminu nie da się na razie wyliczyć.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.progress">
+        <source>Progress</source>
+        <target>Przebieg</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.step-submitted">
+        <source>Statement submitted</source>
+        <target>Oświadczenie złożone</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.step-rejected">
+        <source>Statement rejected</source>
+        <target>Oświadczenie odrzucone</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.step-confirmed">
+        <source>Confirmed by the shop</source>
+        <target>Potwierdzone przez sklep</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.waiting">
+        <source>Waiting</source>
+        <target>Oczekuje</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.return">
+        <source>Return</source>
+        <target>Zwrot towaru</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.return-auto">
+        <source>Created automatically, no number typed in</source>
+        <target>Utworzony automatycznie, bez wpisywania numeru</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.return-later">
+        <source>Appears once the statement is confirmed</source>
+        <target>Pojawi się po potwierdzeniu oświadczenia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.refund">
+        <source>Refund</source>
+        <target>Zwrot pieniędzy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.refund-slip">
+        <source>Marked accepted. Issue the credit slip in Credit Slips</source>
+        <target>Oznaczone jako przyjęte. Wystaw pokwitowanie w zakładce Pokwitowania.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.refund-external">
+        <source>Marked accepted. Refund to be processed through your accounting system</source>
+        <target>Oznaczone jako przyjęte. Zwrot pieniędzy do rozliczenia w Twoim systemie księgowym.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.refund-later">
+        <source>Appears once you click “Accept the return”</source>
+        <target>Pojawi się po kliknięciu „Przyjmij zwrot”</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.confirm">
+        <source>Confirm</source>
+        <target>Potwierdź</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.accept">
+        <source>Accept the return</source>
+        <target>Przyjmij zwrot</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.download-pdf">
+        <source>Download PDF</source>
+        <target>Pobierz PDF</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.reject-reason">
+        <source>Reason for rejection</source>
+        <target>Powód odrzucenia</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.statement.reject">
+        <source>Reject the statement</source>
+        <target>Odrzuć oświadczenie</target>
+      </trans-unit>
+
+      <trans-unit id="quince.withdrawal.list.intro">
+        <source>Statements submitted through the online withdrawal form. Confirming or rejecting one is done from its own page.</source>
+        <target>Oświadczenia złożone przez formularz odstąpienia od umowy online. Potwierdzenie albo odrzucenie odbywa się na stronie danego oświadczenia.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.in-progress">
+        <source>Return in progress</source>
+        <target>Zwrot w toku</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.urgent">
+        <source>Deadline today or passed</source>
+        <target>Termin mija dziś lub już minął</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.statement">
+        <source>Statement</source>
+        <target>Oświadczenie</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.deadline">
+        <source>deadline: %s</source>
+        <target>termin: %s</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.today">
+        <source>today</source>
+        <target>dziś</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.overdue">
+        <source>overdue</source>
+        <target>po terminie</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.pdf">
+        <source>PDF</source>
+        <target>PDF</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.pagination">
+        <source>Page %page% of %pages%, %total% entries</source>
+        <target>Strona %page% z %pages%, łącznie wpisów: %total%</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.list.empty">
+        <source>No withdrawal statements yet.</source>
+        <target>Nie ma jeszcze żadnych oświadczeń o odstąpieniu od umowy.</target>
+      </trans-unit>
+
+      <!-- Dodatkowe pole na karcie produktu (quince_withdrawal.php, Form/WithdrawalModeChoiceType.php). -->
+      <trans-unit id="quince.withdrawal.field.desc">
+        <source>How this product is treated under the right of withdrawal. Leave at the default unless the law excludes it.</source>
+        <target>Jak ten produkt jest traktowany w ramach prawa odstąpienia od umowy. Zostaw ustawienie domyślne, chyba że prawo go wyłącza.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.field.mode_standard">
+        <source>Standard: the right applies in full</source>
+        <target>Standardowo: prawo przysługuje w pełni</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.field.mode_custom_made">
+        <source>Made to the customer's specification: excluded (Art. 16(c))</source>
+        <target>Wykonany według specyfikacji klienta: wyłączony (art. 16 lit. c)</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.field.mode_sealed_hygiene">
+        <source>Sealed for health or hygiene reasons, excluded once unsealed (Art. 16(e))</source>
+        <target>Zapieczętowany ze względów zdrowotnych lub higienicznych, wyłączony po otwarciu (art. 16 lit. e)</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.field.mode_service">
+        <source>Service, excluded once fully performed with the customer's consent (Art. 16(a))</source>
+        <target>Usługa, wyłączona po pełnym wykonaniu za zgodą klienta (art. 16 lit. a)</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.field.mode_digital">
+        <source>Digital content not on a tangible medium, excluded once delivered with the customer's consent (Art. 16(m))</source>
+        <target>Treści cyfrowe bez nośnika materialnego, wyłączone po dostarczeniu za zgodą klienta (art. 16 lit. m)</target>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>

@@ -41,7 +41,7 @@ final class StatementMailer
             [],
             'Modules.Quincewithdrawal.Shop',
             \Language::getLocaleById($idLang) ?: null
-        ) . ' — ' . $statement['reference'];
+        ) . ': ' . $statement['reference'];
 
         return (bool) Mail::Send(
             $idLang,

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en-US" target-language="pl-PL" datatype="plaintext" original="ModulesQuincewithdrawalShop">
+    <body>
+
+      <trans-unit id="quince.withdrawal.shop.submitted-msg">
+        <source>Your withdrawal request has been submitted.</source>
+        <target>Oświadczenie o odstąpieniu od umowy zostało złożone.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.not-eligible">
+        <source>The right of withdrawal no longer applies to this order.</source>
+        <target>Prawo odstąpienia od umowy nie przysługuje już dla tego zamówienia.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.withdrawals">
+        <source>Withdrawals</source>
+        <target>Odstąpienia od umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.mail-subject">
+        <source>Withdrawal statement received</source>
+        <target>Otrzymaliśmy oświadczenie o odstąpieniu od umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.statement">
+        <source>Statement</source>
+        <target>Oświadczenie</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.status-submitted">
+        <source>Submitted, waiting for the shop to confirm</source>
+        <target>Złożone, czeka na potwierdzenie sklepu</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.status-acknowledged">
+        <source>Confirmed by the shop</source>
+        <target>Potwierdzone przez sklep</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.status-accepted">
+        <source>Accepted, refund pending</source>
+        <target>Przyjęte, czeka na zwrot pieniędzy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.status-rejected">
+        <source>Rejected</source>
+        <target>Odrzucone</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.empty">
+        <source>You have no withdrawal statements.</source>
+        <target>Nie masz żadnych oświadczeń o odstąpieniu od umowy.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.right">
+        <source>Right of withdrawal</source>
+        <target>Prawo odstąpienia od umowy</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.reason">
+        <source>Reason (optional)</source>
+        <target>Powód (opcjonalnie)</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.reason-placeholder">
+        <source>You do not have to give one.</source>
+        <target>Nie musisz go podawać.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.hint">
+        <source>You can withdraw from this order within %days% days, with no reason required. We will acknowledge receipt by e-mail, with a copy attached as a PDF.</source>
+        <target>Od umowy zawartej w tym zamówieniu możesz odstąpić w ciągu %days% dni, bez podawania przyczyny. Otrzymanie oświadczenia potwierdzimy e-mailem, z kopią w załączniku PDF.</target>
+      </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.submit">
+        <source>Withdraw from this order</source>
+        <target>Odstąp od umowy</target>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>

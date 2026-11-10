@@ -36,8 +36,8 @@ final class WithdrawalModeChoiceType extends AbstractType
     public static function choices(): array
     {
         return [
-            'Standard — the right applies in full' => self::STANDARD,
-            'Made to the customer\'s specification — excluded (Art. 16(c))' => self::CUSTOM_MADE,
+            'Standard: the right applies in full' => self::STANDARD,
+            'Made to the customer\'s specification: excluded (Art. 16(c))' => self::CUSTOM_MADE,
             'Sealed for health or hygiene reasons, excluded once unsealed (Art. 16(e))' => self::SEALED_HYGIENE,
             'Service, excluded once fully performed with the customer\'s consent (Art. 16(a))' => self::SERVICE,
             'Digital content not on a tangible medium, excluded once delivered with the customer\'s consent (Art. 16(m))' => self::DIGITAL,
@@ -48,6 +48,7 @@ final class WithdrawalModeChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => self::choices(),
+            'choice_translation_domain' => 'Modules.Quincewithdrawal.Admin',
             'required' => false,
             'placeholder' => false,
         ]);

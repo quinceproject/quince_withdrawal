@@ -18,8 +18,8 @@
 {% set modeLabel = {
     '':               'Standard'|trans,
     'standard':       'Standard'|trans,
-    'custom_made':    'Excluded — made to order'|trans,
-    'sealed_hygiene': 'Excluded — sealed for hygiene'|trans,
+    'custom_made':    'Excluded: made to order'|trans,
+    'sealed_hygiene': 'Excluded: sealed for hygiene'|trans,
     'service':        'Service'|trans,
     'digital':        'Digital content'|trans
 } %}
@@ -59,7 +59,7 @@
             <div class="qc-card-head">
                 <div>
                     <div class="qc-card-title">{{ 'Products in the order'|trans }}</div>
-                    <div class="qc-card-desc">{{ 'The statement covers the whole order — returning only part of it is not supported yet.'|trans }}</div>
+                    <div class="qc-card-desc">{{ 'The statement covers the whole order. Returning only part of it is not supported yet.'|trans }}</div>
                 </div>
             </div>
             <table class="qc-table">
@@ -82,7 +82,7 @@
                 {% if statement.reason %}
                     <p class="qc-muted" style="margin:0">{{ statement.reason }}</p>
                 {% else %}
-                    <p class="qc-muted" style="margin:0">{{ 'The customer gave no reason — the right of withdrawal does not require one.'|trans }}</p>
+                    <p class="qc-muted" style="margin:0">{{ 'The customer gave no reason. The right of withdrawal does not require one.'|trans }}</p>
                 {% endif %}
                 <div class="qc-hint" style="margin-top:10px">{{ 'Submitted online %s'|trans|format(statement.date_add|date('Y-m-d')) }} · {{ 'acknowledgement sent by e-mail as a PDF (durable medium)'|trans }}</div>
             </div>
@@ -177,7 +177,7 @@
                             <div style="font-size:13px; font-weight:600{{ statement.status != 'accepted' ? '; color:var(--fg-3)' }}">{{ 'Refund'|trans }}</div>
                             <div style="font-size:11px; color:var(--fg-3); margin-top:2px">
                                 {% if statement.status == 'accepted' %}
-                                    {{ useNativeCreditSlip ? ('Marked accepted — issue the credit slip in Credit Slips'|trans) : ('Marked accepted — refund to be processed through your accounting system'|trans) }}
+                                    {{ useNativeCreditSlip ? ('Marked accepted. Issue the credit slip in Credit Slips'|trans) : ('Marked accepted. Refund to be processed through your accounting system'|trans) }}
                                 {% else %}
                                     {{ 'Appears once you click “Accept the return”'|trans }}
                                 {% endif %}

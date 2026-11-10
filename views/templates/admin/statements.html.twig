@@ -73,8 +73,8 @@
                                 {% if s.status == 'submitted' and s.deadline %}
                                     <br><span class="qc-muted">
                                         {{ 'deadline: %s'|trans|format(s.deadline) }}
-                                        {%- if s.deadline == "now"|date('Y-m-d') %} — {{ 'today'|trans }}
-                                        {%- elseif s.deadline < "now"|date('Y-m-d') %} — {{ 'overdue'|trans }}
+                                        {%- if s.deadline == "now"|date('Y-m-d') %} ({{ 'today'|trans }})
+                                        {%- elseif s.deadline < "now"|date('Y-m-d') %} ({{ 'overdue'|trans }})
                                         {%- endif %}
                                     </span>
                                 {% endif %}
