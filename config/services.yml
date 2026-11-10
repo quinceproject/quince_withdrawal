@@ -1,0 +1,80 @@
+services:
+  _defaults:
+    public: true
+    autoconfigure: true
+    autowire: true
+    tags: ['controller.service_arguments']
+
+  Quince\Withdrawal\Controller\Admin\StatementsController:
+    class: Quince\Withdrawal\Controller\Admin\StatementsController
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+
+  Quince\Withdrawal\Controller\Admin\StatementController:
+    class: Quince\Withdrawal\Controller\Admin\StatementController
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+
+  Quince\Withdrawal\Controller\Admin\SettingsController:
+    class: Quince\Withdrawal\Controller\Admin\SettingsController
+    arguments:
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+
+  Quince\Withdrawal\Repository:
+    class: Quince\Withdrawal\Repository
+
+  Quince\Withdrawal\Settings\WithdrawalSettings:
+    class: Quince\Withdrawal\Settings\WithdrawalSettings
+
+  # Zasób Admin API rdzeń wczytuje sam z `src/ApiPlatform/Resources`, ale
+  # dostawcę i procesor trzeba zarejestrować jak każdą inną usługę: API
+  # Platform sięga po nie po nazwie klasy (ten sam wzorzec co w quince_gpsr).
+  Quince\Withdrawal\ApiPlatform\Provider\StatementProvider:
+    class: Quince\Withdrawal\ApiPlatform\Provider\StatementProvider
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+      - '@request_stack'
+    tags: ['api_platform.state_provider']
+
+  Quince\Withdrawal\ApiPlatform\Processor\SettlementProcessor:
+    class: Quince\Withdrawal\ApiPlatform\Processor\SettlementProcessor
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+      - '@request_stack'
+    tags: ['api_platform.state_processor']
+
+  Quince\Withdrawal\ApiPlatform\Processor\ConfirmProcessor:
+    class: Quince\Withdrawal\ApiPlatform\Processor\ConfirmProcessor
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+      - '@request_stack'
+    tags: ['api_platform.state_processor']
+
+  Quince\Withdrawal\ApiPlatform\Processor\AcceptProcessor:
+    class: Quince\Withdrawal\ApiPlatform\Processor\AcceptProcessor
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+      - '@request_stack'
+    tags: ['api_platform.state_processor']
+
+  Quince\Withdrawal\ApiPlatform\Processor\RejectProcessor:
+    class: Quince\Withdrawal\ApiPlatform\Processor\RejectProcessor
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+      - '@request_stack'
+    tags: ['api_platform.state_processor']
+
+  Quince\Withdrawal\ApiPlatform\Processor\CreateProcessor:
+    class: Quince\Withdrawal\ApiPlatform\Processor\CreateProcessor
+    arguments:
+      - '@Quince\Withdrawal\Repository'
+      - '@Quince\Withdrawal\Settings\WithdrawalSettings'
+      - '@request_stack'
+    tags: ['api_platform.state_processor']

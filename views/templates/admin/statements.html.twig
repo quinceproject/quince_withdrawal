@@ -1,0 +1,131 @@
+{% extends '@Modules/quince_withdrawal/views/templates/admin/layout.html.twig' %}
+{% import '@Modules/quince_withdrawal/views/templates/admin/_macros/icons.html.twig' as icons %}
+
+{% trans_default_domain 'Modules.Quincewithdrawal.Admin' %}
+
+{% block quince_intro %}
+    <div class="qc-alert qc-alert-info" style="margin-bottom:20px">
+        {{ icons.icon('info', 18, 'qc-alert-icon') }}
+        <div>{{ 'Statements submitted through the online withdrawal form. Confirming or rejecting one is done from its own page.'|trans }}</div>
+    </div>
+{% endblock %}
+
+{% block quince_body %}
+<div class="qc-stack">
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap">
+        <div class="qc-card" style="flex:1; min-width:160px">
+            <div class="qc-card-body">
+                <div class="qc-muted" style="margin-bottom:4px">{{ 'Waiting for confirmation'|trans }}</div>
+                <div class="qc-stat">{{ counts.submitted }}</div>
+            </div>
+        </div>
+        <div class="qc-card" style="flex:1; min-width:160px">
+            <div class="qc-card-body">
+                <div class="qc-muted" style="margin-bottom:4px">{{ 'Return in progress'|trans }}</div>
+                <div class="qc-stat">{{ counts.acknowledged }}</div>
+            </div>
+        </div>
+        <div class="qc-card" style="flex:1; min-width:160px">
+            <div class="qc-card-body">
+                <div class="qc-muted" style="margin-bottom:4px">{{ 'Deadline today or passed'|trans }}</div>
+                <div class="qc-stat"{{ counts.urgent > 0 ? ' style="color:var(--danger)"' }}>{{ counts.urgent }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="qc-table-wrap">
+        {% if statements %}
+            <table class="qc-table">
+                <thead>
+                    <tr>
+                        <th>{{ 'Statement'|trans }}</th>
+                        <th>{{ 'Order'|trans }}</th>
+                        <th>{{ 'Customer'|trans }}</th>
+                        <th>{{ 'Submitted'|trans }}</th>
+                        <th>{{ 'Kind'|trans }}</th>
+                        <th>{{ 'Status'|trans }}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set badge = {
+                        'submitted':    'qc-badge-warning',
+                        'acknowledged': 'qc-badge-accent',
+                        'accepted':     'qc-badge-success',
+                        'rejected':     'qc-badge-danger'
+                    } %}
+                    {% for s in statements %}
+                        {% set label = {
+                            'submitted':    'Waiting for confirmation'|trans,
+                            'acknowledged': 'Confirmed, waiting for the goods'|trans,
+                            'accepted':     s.native_credit_slip ? 'Accepted, issue credit slip'|trans : 'Accepted, refund pending'|trans,
+                            'rejected':     'Rejected'|trans
+                        } %}
+                        <tr>
+                            <td><a href="{{ path('quince_withdrawal_statement', {id: s.id_withdrawal}) }}">{{ s.reference }}</a></td>
+                            <td><a href="{{ path('admin_orders_view', {orderId: s.id_order}) }}">{{ s.order_reference }}</a></td>
+                            <td>{{ s.customer_name }}</td>
+                            <td>{{ s.date_add|date('Y-m-d') }}</td>
+                            <td>{{ s.is_goods ? 'Goods'|trans : 'Service / digital content'|trans }}</td>
+                            <td>
+                                <span class="qc-badge {{ badge[s.status] }}">{{ label[s.status] }}</span>
+                                {% if s.status == 'submitted' and s.deadline %}
+                                    <br><span class="qc-muted">
+                                        {{ 'deadline: %s'|trans|format(s.deadline) }}
+                                        {%- if s.deadline == "now"|date('Y-m-d') %} — {{ 'today'|trans }}
+                                        {%- elseif s.deadline < "now"|date('Y-m-d') %} — {{ 'overdue'|trans }}
+                                        {%- endif %}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="qc-row-actions" style="justify-content:flex-end">
+                                    {% if s.status == 'submitted' %}
+                                        <form method="post" action="{{ path('quince_withdrawal_statement_confirm', {id: s.id_withdrawal}) }}">
+                                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('quince_withdrawal_statement_confirm') }}">
+                                            <button type="submit" class="qc-btn qc-btn-sm qc-btn-primary">{{ 'Confirm'|trans }}</button>
+                                        </form>
+                                    {% elseif s.status == 'acknowledged' %}
+                                        <form method="post" action="{{ path('quince_withdrawal_statement_accept', {id: s.id_withdrawal}) }}">
+                                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('quince_withdrawal_statement_accept') }}">
+                                            <button type="submit" class="qc-btn qc-btn-sm qc-btn-outline">{{ 'Accept the return'|trans }}</button>
+                                        </form>
+                                    {% endif %}
+                                    {% if s.pdf_filename %}
+                                        <a href="{{ path('quince_withdrawal_statement_pdf', {id: s.id_withdrawal}) }}" class="qc-btn qc-btn-sm qc-btn-outline">{{ 'PDF'|trans }}</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="qc-table-foot">
+                <span class="qc-muted">{{ 'Page %page% of %pages%, %total% entries'|trans({'%page%': page, '%pages%': pages, '%total%': total}) }}</span>
+                {% if pages > 1 %}
+                    <div class="qc-pagination">
+                        {% if page > 1 %}
+                            <a class="qc-page-btn" href="{{ path('quince_withdrawal_statements', {page: page - 1}) }}">‹</a>
+                        {% endif %}
+
+                        {% for numer in max(1, page - 2)..min(pages, page + 2) %}
+                            <a class="qc-page-btn{{ numer == page ? ' qc-active' : '' }}"
+                               href="{{ path('quince_withdrawal_statements', {page: numer}) }}">{{ numer }}</a>
+                        {% endfor %}
+
+                        {% if page < pages %}
+                            <a class="qc-page-btn" href="{{ path('quince_withdrawal_statements', {page: page + 1}) }}">›</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="qc-empty">
+                {{ icons.icon('file', 36, 'qc-empty-icon') }}
+                <div class="qc-empty-text">{{ 'No withdrawal statements yet.'|trans }}</div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

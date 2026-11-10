@@ -1,0 +1,11 @@
+{shop_name}
+{reference}
+
+Hello {customer_name},
+
+We confirm receipt of your statement of withdrawal from the contract for order {order_reference}.
+The acknowledgement is attached as a PDF.
+
+No reason was required and none is needed for the statement to be valid.
+
+{shop_url}

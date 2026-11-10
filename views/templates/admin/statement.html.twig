@@ -1,0 +1,224 @@
+{% extends '@Modules/quince_withdrawal/views/templates/admin/layout.html.twig' %}
+{% import '@Modules/quince_withdrawal/views/templates/admin/_macros/icons.html.twig' as icons %}
+
+{% trans_default_domain 'Modules.Quincewithdrawal.Admin' %}
+
+{% set badgeClass = {
+    'submitted':    'qc-badge-warning',
+    'acknowledged': 'qc-badge-accent',
+    'accepted':     'qc-badge-success',
+    'rejected':     'qc-badge-danger'
+} %}
+{% set badgeLabel = {
+    'submitted':    'Waiting for confirmation'|trans,
+    'acknowledged': 'Confirmed, waiting for the goods'|trans,
+    'accepted':     'Accepted, issue credit slip'|trans,
+    'rejected':     'Rejected'|trans
+} %}
+{% set modeLabel = {
+    '':               'Standard'|trans,
+    'standard':       'Standard'|trans,
+    'custom_made':    'Excluded — made to order'|trans,
+    'sealed_hygiene': 'Excluded — sealed for hygiene'|trans,
+    'service':        'Service'|trans,
+    'digital':        'Digital content'|trans
+} %}
+
+{% block quince_intro %}
+    <a href="{{ path('quince_withdrawal_statements') }}" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--fg-2); margin-bottom:10px">
+        {{ icons.icon('chevronLeft', 16) }} {{ 'Statements'|trans }}
+    </a>
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px">
+        <div style="font-size:22px; font-weight:800">{{ statement.reference }}</div>
+        <span class="qc-badge {{ badgeClass[statement.status] }}">{{ badgeLabel[statement.status] }}</span>
+    </div>
+    {% if statement.status == 'rejected' and statement.reject_reason %}
+        <p class="qc-muted" style="margin:0 0 20px">{{ 'Reason:'|trans }} {{ statement.reject_reason }}</p>
+    {% else %}
+        <div style="margin-bottom:20px"></div>
+    {% endif %}
+{% endblock %}
+
+{% block quince_body %}
+<div style="display:grid; grid-template-columns:1fr 320px; gap:20px; align-items:start">
+
+    <div class="qc-stack">
+        <div class="qc-card">
+            <div class="qc-card-head"><div class="qc-card-title">{{ 'Order and customer'|trans }}</div></div>
+            <div class="qc-card-body">
+                <dl style="display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:13px; margin:0">
+                    <dt style="color:var(--fg-3)">{{ 'Order'|trans }}</dt><dd style="margin:0; text-align:right"><a href="{{ path('admin_orders_view', {orderId: statement.id_order}) }}">{{ statement.order_reference }}</a></dd>
+                    <dt style="color:var(--fg-3)">{{ 'Customer'|trans }}</dt><dd style="margin:0; text-align:right">{{ statement.customer_name }}</dd>
+                    <dt style="color:var(--fg-3)">{{ 'E-mail'|trans }}</dt><dd style="margin:0; text-align:right">{{ statement.customer_email }}</dd>
+                    <dt style="color:var(--fg-3)">{{ 'Ordered'|trans }}</dt><dd style="margin:0; text-align:right">{{ statement.order_date|date('Y-m-d') }}</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="qc-card">
+            <div class="qc-card-head">
+                <div>
+                    <div class="qc-card-title">{{ 'Products in the order'|trans }}</div>
+                    <div class="qc-card-desc">{{ 'The statement covers the whole order — returning only part of it is not supported yet.'|trans }}</div>
+                </div>
+            </div>
+            <table class="qc-table">
+                <thead><tr><th>{{ 'Product'|trans }}</th><th>{{ 'Qty'|trans }}</th><th>{{ 'Right of withdrawal'|trans }}</th></tr></thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.product_name }}</td>
+                            <td>{{ item.product_quantity }}</td>
+                            <td><span class="qc-badge">{{ modeLabel[item.withdrawal_mode]|default(item.withdrawal_mode) }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="qc-card">
+            <div class="qc-card-head"><div class="qc-card-title">{{ 'Statement text'|trans }}</div></div>
+            <div class="qc-card-body">
+                {% if statement.reason %}
+                    <p class="qc-muted" style="margin:0">{{ statement.reason }}</p>
+                {% else %}
+                    <p class="qc-muted" style="margin:0">{{ 'The customer gave no reason — the right of withdrawal does not require one.'|trans }}</p>
+                {% endif %}
+                <div class="qc-hint" style="margin-top:10px">{{ 'Submitted online %s'|trans|format(statement.date_add|date('Y-m-d')) }} · {{ 'acknowledgement sent by e-mail as a PDF (durable medium)'|trans }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="qc-stack">
+        <div class="qc-card">
+            <div class="qc-card-head"><div class="qc-card-title">{{ 'Deadline'|trans }}</div></div>
+            <div class="qc-card-body">
+                <dl style="display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:13px; margin:0">
+                    <dt style="color:var(--fg-3)">{{ 'Kind'|trans }}</dt><dd style="margin:0; text-align:right">{{ isGoods ? 'Goods'|trans : 'Service / digital content'|trans }}</dd>
+                    <dt style="color:var(--fg-3)">{{ isGoods ? 'Delivered'|trans : 'Contract concluded'|trans }}</dt><dd style="margin:0; text-align:right">{{ startDate ? startDate|date('Y-m-d') : '—' }}</dd>
+                    <dt style="color:var(--fg-3)">{{ 'Deadline'|trans }}</dt><dd style="margin:0; text-align:right">{{ deadline ?: '—' }}</dd>
+                    <dt style="color:var(--fg-3)">{{ 'Submitted'|trans }}</dt><dd style="margin:0; text-align:right">{{ statement.date_add|date('Y-m-d') }}</dd>
+                </dl>
+                {% if not startDate %}
+                    <div class="qc-alert qc-alert-warning" style="margin-top:12px">
+                        {{ icons.icon('alertTriangle', 16, 'qc-alert-icon') }}
+                        <div>{{ 'The order never reached the status configured in Settings, so the deadline cannot be worked out yet.'|trans }}</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="qc-card">
+            <div class="qc-card-head"><div class="qc-card-title">{{ 'Progress'|trans }}</div></div>
+            <div class="qc-card-body">
+                <div style="display:flex; flex-direction:column">
+
+                    <div style="display:flex; gap:10px; position:relative; padding-bottom:18px">
+                        <div style="position:absolute; left:9px; top:22px; bottom:0; width:1px; background:var(--border)"></div>
+                        <div style="width:20px; height:20px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; background:var(--success-soft); color:var(--success); z-index:1">
+                            {{ icons.icon('check', 12) }}
+                        </div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600">{{ 'Statement submitted'|trans }}</div>
+                            <div style="font-size:11px; color:var(--fg-3); margin-top:2px">{{ statement.date_add|date('Y-m-d') }} · {{ statement.reference }}</div>
+                        </div>
+                    </div>
+
+                    {% if statement.status == 'rejected' %}
+                        <div style="display:flex; gap:10px">
+                            <div style="width:20px; height:20px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; background:var(--danger-soft); color:var(--danger); z-index:1">
+                                {{ icons.icon('x', 12) }}
+                            </div>
+                            <div>
+                                <div style="font-size:13px; font-weight:600">{{ 'Statement rejected'|trans }}</div>
+                                <div style="font-size:11px; color:var(--fg-3); margin-top:2px">{{ statement.date_upd|date('Y-m-d') }}</div>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div style="display:flex; gap:10px; position:relative; padding-bottom:18px">
+                        {% if statement.status in ['acknowledged', 'accepted'] %}<div style="position:absolute; left:9px; top:22px; bottom:0; width:1px; background:var(--border)"></div>{% endif %}
+                        <div style="width:20px; height:20px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; z-index:1
+                                    {{ statement.status in ['acknowledged', 'accepted'] ? ' background:var(--success-soft); color:var(--success)' : ' background:var(--accent-soft); color:var(--accent-active)' }}">
+                            {{ icons.icon(statement.status in ['acknowledged', 'accepted'] ? 'check' : 'box', 12) }}
+                        </div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600{{ statement.status not in ['acknowledged', 'accepted'] ? '; color:var(--fg-3)' }}">{{ 'Confirmed by the shop'|trans }}</div>
+                            <div style="font-size:11px; color:var(--fg-3); margin-top:2px">{{ statement.status in ['acknowledged', 'accepted'] ? statement.date_upd|date('Y-m-d') : ('Waiting'|trans) }}</div>
+                        </div>
+                    </div>
+
+                    {% if isGoods %}
+                        <div style="display:flex; gap:10px; position:relative; padding-bottom:18px">
+                            <div style="position:absolute; left:9px; top:22px; bottom:0; width:1px; background:var(--border)"></div>
+                            <div style="width:20px; height:20px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; z-index:1
+                                        {{ statement.id_order_return ? ' background:var(--accent-soft); color:var(--accent-active)' : ' background:var(--surface-sunken); color:var(--fg-3); border:1px dashed var(--border-strong)' }}">
+                                {{ icons.icon('box', 12) }}
+                            </div>
+                            <div>
+                                <div style="font-size:13px; font-weight:600{{ not statement.id_order_return ? '; color:var(--fg-3)' }}">
+                                    {{ 'Return'|trans }}
+                                    {% if statement.id_order_return %}
+                                        <a href="{{ path('admin_order_returns_edit', {orderReturnId: statement.id_order_return}) }}" style="font-size:11px">#{{ statement.id_order_return }}</a>
+                                    {% endif %}
+                                </div>
+                                <div style="font-size:11px; color:var(--fg-3); margin-top:2px">
+                                    {{ statement.id_order_return ? ('Created automatically, no number typed in'|trans) : ('Appears once the statement is confirmed'|trans) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div style="display:flex; gap:10px">
+                        <div style="width:20px; height:20px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; z-index:1
+                                    {{ statement.status == 'accepted' ? ' background:var(--success-soft); color:var(--success)' : ' background:var(--surface-sunken); color:var(--fg-3); border:1px dashed var(--border-strong)' }}">
+                            {{ icons.icon('check', 12) }}
+                        </div>
+                        <div>
+                            <div style="font-size:13px; font-weight:600{{ statement.status != 'accepted' ? '; color:var(--fg-3)' }}">{{ 'Refund'|trans }}</div>
+                            <div style="font-size:11px; color:var(--fg-3); margin-top:2px">
+                                {% if statement.status == 'accepted' %}
+                                    {{ useNativeCreditSlip ? ('Marked accepted — issue the credit slip in Credit Slips'|trans) : ('Marked accepted — refund to be processed through your accounting system'|trans) }}
+                                {% else %}
+                                    {{ 'Appears once you click “Accept the return”'|trans }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="qc-card">
+            <div class="qc-card-body qc-stack" style="gap:8px">
+                {% if statement.status == 'submitted' %}
+                    <form method="post" action="{{ path('quince_withdrawal_statement_confirm', {id: statement.id_withdrawal}) }}">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('quince_withdrawal_statement_confirm') }}">
+                        <button type="submit" class="qc-btn qc-btn-primary" style="width:100%; justify-content:center">{{ 'Confirm'|trans }}</button>
+                    </form>
+                {% elseif statement.status == 'acknowledged' %}
+                    <form method="post" action="{{ path('quince_withdrawal_statement_accept', {id: statement.id_withdrawal}) }}">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('quince_withdrawal_statement_accept') }}">
+                        <button type="submit" class="qc-btn qc-btn-primary" style="width:100%; justify-content:center">{{ 'Accept the return'|trans }}</button>
+                    </form>
+                {% endif %}
+                {% if statement.pdf_filename %}
+                    <a href="{{ path('quince_withdrawal_statement_pdf', {id: statement.id_withdrawal}) }}" class="qc-btn qc-btn-outline" style="width:100%; justify-content:center">
+                        {{ icons.icon('download', 14) }} {{ 'Download PDF'|trans }}
+                    </a>
+                {% endif %}
+                {% if statement.status not in ['accepted', 'rejected'] %}
+                    <form method="post" action="{{ path('quince_withdrawal_statement_reject', {id: statement.id_withdrawal}) }}" class="qc-stack" style="gap:8px">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('quince_withdrawal_statement_reject') }}">
+                        <div class="qc-field">
+                            <label class="qc-label" for="q-reject-reason">{{ 'Reason for rejection'|trans }}</label>
+                            <textarea class="qc-field-base qc-focusable" id="q-reject-reason" name="reason" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="qc-btn qc-btn-text qc-btn-danger" style="width:100%; justify-content:center">{{ 'Reject the statement'|trans }}</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

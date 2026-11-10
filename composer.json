@@ -1,0 +1,23 @@
+{
+    "name": "quinceproject/withdrawal",
+    "description": "Quince Withdrawal: the right of withdrawal from a distance contract, with an online statement form and an acknowledgement on a durable medium",
+    "type": "prestashop-module",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Quince Project",
+            "email": "quinceproject@proton.me"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quince\\Withdrawal\\": "src/"
+        }
+    },
+    "config": {
+        "prepend-autoloader": false
+    }
+}

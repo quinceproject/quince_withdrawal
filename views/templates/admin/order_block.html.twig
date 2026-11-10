@@ -1,0 +1,35 @@
+{#
+  Blok na stronie zamówienia (displayAdminOrderMain).
+
+  Strona zamówienia nie ładuje arkuszy modułu — styl jest więc inline, nie
+  klasami qc-*, żeby karta nie wyszła bez stylu na stronie, której <head>
+  nie kontrolujemy.
+#}
+{% set colors = {
+    'submitted':    {bg: 'oklch(95% 0.04 85)',  fg: 'oklch(40% 0.1 78)'},
+    'acknowledged': {bg: 'oklch(95% 0.05 75)',  fg: 'oklch(45% 0.15 72)'},
+    'accepted':     {bg: 'oklch(95% 0.03 148)', fg: 'oklch(40% 0.1 148)'},
+    'rejected':     {bg: 'oklch(95% 0.03 25)',  fg: 'oklch(45% 0.14 25)'}
+} %}
+{% set labels = {
+    'submitted':    'Waiting for confirmation'|trans({}, 'Modules.Quincewithdrawal.Admin'),
+    'acknowledged': 'Confirmed, waiting for the goods'|trans({}, 'Modules.Quincewithdrawal.Admin'),
+    'accepted':     useNativeCreditSlip ? 'Accepted, issue credit slip'|trans({}, 'Modules.Quincewithdrawal.Admin') : 'Accepted, refund pending'|trans({}, 'Modules.Quincewithdrawal.Admin'),
+    'rejected':     'Rejected'|trans({}, 'Modules.Quincewithdrawal.Admin')
+} %}
+{% set c = colors[statement.status] %}
+
+<div class="panel" style="border:1px solid #dadee2; border-radius:4px; margin-bottom:20px">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid #dadee2">
+        <strong>{{ 'Right of withdrawal'|trans({}, 'Modules.Quincewithdrawal.Admin') }}</strong>
+        <span style="display:inline-flex; align-items:center; height:20px; padding:0 8px; border-radius:999px; font-size:11px; font-weight:600; background:{{ c.bg }}; color:{{ c.fg }}">
+            {{ labels[statement.status] }}
+        </span>
+    </div>
+    <div style="padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:13px">
+        <span style="color:#6c7884">{{ statement.reference }}</span>
+        <a href="{{ path('quince_withdrawal_statement', {id: statement.id_withdrawal}) }}" class="btn btn-outline-secondary btn-sm">
+            {{ 'Open'|trans({}, 'Modules.Quincewithdrawal.Admin') }}
+        </a>
+    </div>
+</div>

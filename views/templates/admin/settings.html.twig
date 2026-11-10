@@ -1,0 +1,165 @@
+{% extends '@Modules/quince_withdrawal/views/templates/admin/layout.html.twig' %}
+{% import '@Modules/quince_withdrawal/views/templates/admin/_macros/icons.html.twig' as icons %}
+
+{% trans_default_domain 'Modules.Quincewithdrawal.Admin' %}
+
+{# Alpine.js napędza x-model (przełącznik, pole grupy klienta) na tym
+   ekranie — layout modułu go nie ładuje, bo żaden inny ekran go nie
+   potrzebuje. Kopia z quince_engine, tak jak tokeny CSS w layout.html.twig. #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('../modules/quince_engine/views/js/vendor/alpine.min.js') ~ qcVer }}" defer></script>
+{% endblock %}
+
+{% block quince_intro %}
+    <div class="qc-alert qc-alert-info">
+        {{ icons.icon('info', 18, 'qc-alert-icon') }}
+        <div>
+            {{ 'A customer can withdraw from a distance contract within the term below, with no reason required. The exception for a given product is set on the product page, under "Right of withdrawal".'|trans }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block quince_actions %}
+    <button type="submit" form="quince-withdrawal" class="qc-btn qc-btn-primary">
+        {{ icons.icon('check', 14) }} {{ 'Save changes'|trans }}
+    </button>
+{% endblock %}
+
+{% block quince_body %}
+<form id="quince-withdrawal" method="post" action="{{ path('quince_withdrawal_settings_save') }}" class="qc-stack"
+      x-data="{ mode: '{{ settings.QUALIFICATION_MODE }}' }">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('quince_withdrawal_settings_save') }}">
+
+    {# ── 1. Kto ma prawo odstąpienia ── #}
+    <div class="qc-card">
+        <div class="qc-card-head">
+            <div>
+                <div class="qc-card-title">{{ 'Who the right applies to'|trans }}</div>
+                <div class="qc-card-desc">{{ 'The right of withdrawal belongs to a consumer, not to a business buying for its own trade.'|trans }}</div>
+            </div>
+        </div>
+
+        <div class="qc-card-body qc-stack">
+            <div class="qc-field" style="max-inline-size:420px">
+                <label class="qc-label" for="q-qualification">{{ 'Telling a consumer from a business'|trans }}</label>
+                <div class="qc-select-wrap">
+                    <select id="q-qualification" name="QUALIFICATION_MODE" class="qc-field-base qc-select qc-focusable" x-model="mode">
+                        <option value="all">{{ 'Treat every order as a consumer order'|trans }}</option>
+                        <option value="company_field">{{ 'An order with a company name on the invoice address is a business order'|trans }}</option>
+                        <option value="customer_group">{{ 'An order placed by a chosen customer group is a business order'|trans }}</option>
+                    </select>
+                    {{ icons.icon('chevronDown', 14, 'qc-select-chevron') }}
+                </div>
+                <div class="qc-hint">{{ 'When your shop sells only to consumers, the first option is the simplest and the safest.'|trans }}</div>
+            </div>
+
+            <div class="qc-field" style="max-inline-size:300px" x-show="mode === 'customer_group'" x-cloak>
+                <label class="qc-label" for="q-group">{{ 'Business customer group'|trans }}</label>
+                <div class="qc-select-wrap">
+                    <select id="q-group" name="EXCLUDED_GROUP" class="qc-field-base qc-select qc-focusable">
+                        <option value="0">{{ 'Choose a group'|trans }}</option>
+                        {% for group in customerGroups %}
+                            <option value="{{ group.id }}"{{ settings.EXCLUDED_GROUP == group.id ? ' selected' }}>{{ group.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {{ icons.icon('chevronDown', 14, 'qc-select-chevron') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# ── 2. Od czego liczy się termin ── #}
+    <div class="qc-card">
+        <div class="qc-card-head">
+            <div>
+                <div class="qc-card-title">{{ 'When the deadline starts'|trans }}</div>
+                <div class="qc-card-desc">{{ 'Goods, services and digital content each start the clock at a different moment. Pick the order status your shop uses for each.'|trans }}</div>
+            </div>
+        </div>
+
+        <div class="qc-card-body qc-stack">
+            <div class="qc-field" style="max-inline-size:380px">
+                <label class="qc-label" for="q-delivery">{{ 'Goods: status that means "delivered"'|trans }}</label>
+                <div class="qc-select-wrap">
+                    <select id="q-delivery" name="DELIVERY_STATUS" class="qc-field-base qc-select qc-focusable">
+                        <option value="0">{{ 'Choose a status'|trans }}</option>
+                        {% for state in orderStates %}
+                            <option value="{{ state.id }}"{{ settings.DELIVERY_STATUS == state.id ? ' selected' }}>{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {{ icons.icon('chevronDown', 14, 'qc-select-chevron') }}
+                </div>
+                <div class="qc-hint">{{ 'The deadline for a physical product starts the day the customer receives it, not the day it is paid for.'|trans }}</div>
+            </div>
+
+            <div class="qc-field" style="max-inline-size:380px">
+                <label class="qc-label" for="q-service-start">{{ 'Service and digital content: status that means "contract concluded"'|trans }}</label>
+                <div class="qc-select-wrap">
+                    <select id="q-service-start" name="SERVICE_START_STATUS" class="qc-field-base qc-select qc-focusable">
+                        <option value="0">{{ 'Choose a status'|trans }}</option>
+                        {% for state in orderStates %}
+                            <option value="{{ state.id }}"{{ settings.SERVICE_START_STATUS == state.id ? ' selected' }}>{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {{ icons.icon('chevronDown', 14, 'qc-select-chevron') }}
+                </div>
+                <div class="qc-hint">{{ 'For a service there is no delivery to wait for, so the deadline starts once the order is placed - usually the status your shop uses for payment accepted.'|trans }}</div>
+            </div>
+
+            <div class="qc-field" style="max-inline-size:380px">
+                <label class="qc-label" for="q-digital-delivered">{{ 'Digital content: status that means "delivered"'|trans }}</label>
+                <div class="qc-select-wrap">
+                    <select id="q-digital-delivered" name="DIGITAL_DELIVERED_STATUS" class="qc-field-base qc-select qc-focusable">
+                        <option value="0">{{ 'Same as the goods status above'|trans }}</option>
+                        {% for state in orderStates %}
+                            <option value="{{ state.id }}"{{ settings.DIGITAL_DELIVERED_STATUS == state.id ? ' selected' }}>{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {{ icons.icon('chevronDown', 14, 'qc-select-chevron') }}
+                </div>
+                <div class="qc-hint">{{ 'Decides when the digital-content exception takes effect, once the customer has agreed to an immediate delivery.'|trans }}</div>
+            </div>
+        </div>
+    </div>
+
+    {# ── 3. Jak długi jest termin ── #}
+    <div class="qc-card">
+        <div class="qc-card-head">
+            <div>
+                <div class="qc-card-title">{{ 'How long the deadline is'|trans }}</div>
+                <div class="qc-card-desc">{{ 'The law sets 14 days as the minimum. Your shop may offer more.'|trans }}</div>
+            </div>
+        </div>
+
+        <div class="qc-card-body qc-stack">
+            <div class="qc-field" style="max-inline-size:220px">
+                <label class="qc-label" for="q-term-days">{{ 'Days to withdraw'|trans }}</label>
+                <input type="number" class="qc-field-base qc-focusable" id="q-term-days" name="TERM_DAYS"
+                       value="{{ settings.TERM_DAYS }}" min="{{ limits.termDaysMin }}" max="{{ limits.termDaysMax }}" step="1">
+                <div class="qc-hint">{{ 'Fourteen days is the shortest the law allows. Thirty is the longest this shop offers.'|trans }}</div>
+            </div>
+        </div>
+    </div>
+
+    {# ── 4. Jak rozliczany jest zwrot pieniędzy ── #}
+    <div class="qc-card">
+        <div class="qc-card-head">
+            <div>
+                <div class="qc-card-title">{{ 'Refunding the customer'|trans }}</div>
+                <div class="qc-card-desc">{{ "Turn this off when invoices and credit notes come from an outside accounting system instead of PrestaShop's own."|trans }}</div>
+            </div>
+        </div>
+        <div class="qc-card-body">
+            <div class="qc-field" x-data="{ nativeCreditSlip: {{ settings.NATIVE_CREDIT_SLIP == '1' ? 'true' : 'false' }} }">
+                <label class="qc-toggle">
+                    <input type="checkbox" x-model="nativeCreditSlip">
+                    <span class="qc-toggle-track"></span>
+                    <span class="qc-toggle-text">{{ "Use PrestaShop's native Credit Slips"|trans }}</span>
+                </label>
+                <input type="hidden" name="NATIVE_CREDIT_SLIP" :value="nativeCreditSlip ? 1 : 0">
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,75 @@
+# Ekrany modułu — natywna zakładka pod Customer Service (zob. installTabs()
+# w quince_withdrawal.php).
+#
+# `_legacy_controller` wskazuje WŁASNĄ zakładkę modułu (AdminQuinceWithdrawal),
+# nie AdminOrders: to ona niesie uprawnienia, które sprawdza PrestaShop przy
+# wejściu na trasę. Wskazanie cudzej zakładki sprawdzałoby cudze uprawnienia.
+
+quince_withdrawal_statements:
+  path: sell/withdrawal
+  methods: [GET]
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\StatementsController::indexAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal'
+
+quince_withdrawal_statement:
+  path: sell/withdrawal/{id}
+  methods: [GET]
+  requirements: { id: \d+ }
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\StatementController::indexAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal'
+
+quince_withdrawal_statement_confirm:
+  path: sell/withdrawal/{id}/confirm
+  methods: [POST]
+  requirements: { id: \d+ }
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\StatementController::confirmAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal:save'
+
+quince_withdrawal_statement_accept:
+  path: sell/withdrawal/{id}/accept
+  methods: [POST]
+  requirements: { id: \d+ }
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\StatementController::acceptAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal:save'
+
+quince_withdrawal_statement_reject:
+  path: sell/withdrawal/{id}/reject
+  methods: [POST]
+  requirements: { id: \d+ }
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\StatementController::rejectAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal:save'
+
+quince_withdrawal_statement_pdf:
+  path: sell/withdrawal/{id}/pdf
+  methods: [GET]
+  requirements: { id: \d+ }
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\StatementController::pdfAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal'
+
+quince_withdrawal_settings:
+  path: sell/withdrawal/settings
+  methods: [GET]
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\SettingsController::indexAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal'
+
+quince_withdrawal_settings_save:
+  path: sell/withdrawal/settings/save
+  methods: [POST]
+  defaults:
+    _controller: Quince\Withdrawal\Controller\Admin\SettingsController::saveAction
+    _legacy_controller: 'AdminQuinceWithdrawal'
+    _legacy_link: 'AdminQuinceWithdrawal:save'
