@@ -95,8 +95,8 @@
             <div class="qc-card-body">
                 <dl style="display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:13px; margin:0">
                     <dt style="color:var(--fg-3)">{{ 'Kind'|trans }}</dt><dd style="margin:0; text-align:right">{{ isGoods ? 'Goods'|trans : 'Service / digital content'|trans }}</dd>
-                    <dt style="color:var(--fg-3)">{{ isGoods ? 'Delivered'|trans : 'Contract concluded'|trans }}</dt><dd style="margin:0; text-align:right">{{ startDate ? startDate|date('Y-m-d') : '—' }}</dd>
-                    <dt style="color:var(--fg-3)">{{ 'Deadline'|trans }}</dt><dd style="margin:0; text-align:right">{{ deadline ?: '—' }}</dd>
+                    <dt style="color:var(--fg-3)">{{ isGoods ? 'Delivered'|trans : 'Contract concluded'|trans }}</dt><dd style="margin:0; text-align:right">{{ startDate ? startDate|date('Y-m-d') : '-' }}</dd>
+                    <dt style="color:var(--fg-3)">{{ 'Deadline'|trans }}</dt><dd style="margin:0; text-align:right">{{ deadline ?: '-' }}</dd>
                     <dt style="color:var(--fg-3)">{{ 'Submitted'|trans }}</dt><dd style="margin:0; text-align:right">{{ statement.date_add|date('Y-m-d') }}</dd>
                 </dl>
                 {% if not startDate %}

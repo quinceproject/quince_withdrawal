@@ -99,16 +99,16 @@ use Symfony\Component\HttpFoundation\Response;
             openapiContext: [
                 'summary' => 'Record a statement submitted outside the shop\'s own form',
                 'description' => 'For a withdrawal the customer sent by e-mail, post or another unambiguous '
-                    . 'channel — never for one made through the shop\'s own form, which always goes through '
+                    . 'channel, never for one made through the shop\'s own form, which always goes through '
                     . '`actionValidateOrder`/the front controller, not this endpoint. Always covers the whole '
                     . 'order; the module has no concept of a partial withdrawal. One order can carry at most '
-                    . 'one statement, from either channel — a second `POST` for the same order is rejected '
+                    . 'one statement, from either channel: a second `POST` for the same order is rejected '
                     . 'unless `externalId` matches an existing statement, in which case that existing statement '
                     . 'is returned unchanged. Required: `orderId`, `submittedAt` (ISO 8601 with offset, not in '
-                    . 'the future, not before the order itself), `channel` (`email`, `post` or `other` — '
+                    . 'the future, not before the order itself), `channel` (`email`, `post` or `other`; '
                     . '`shop_form` is reserved), `enteredBy`, `externalId`. Optional: `reason`, `note` (internal, '
                     . 'never shown to the customer or printed on the PDF), `sendConfirmation` (default `true`). '
-                    . 'A statement entered past the legal deadline is still recorded, not auto-rejected — the '
+                    . 'A statement entered past the legal deadline is still recorded, not auto-rejected: the '
                     . 'response\'s own `deadline` field already says whether it has passed; staff decide through '
                     . '`reject`.',
             ],
