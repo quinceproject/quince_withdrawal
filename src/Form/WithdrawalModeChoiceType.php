@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Lista wyboru wyjątku z prawa odstąpienia (art. 16 dyrektywy 2011/83/UE).
  *
  * Pięć wartości stałych, nie tabela słownikowa: BEZ konstruktora, tak jak
- * wymaga tego rdzeń — przy instalacji modułu rdzeń sprawdza definicję pola
+ * wymaga tego rdzeń. Przy instalacji modułu rdzeń sprawdza definicję pola
  * dodatkowego budując przykładowy formularz TYM typem, zanim kontener usług
  * wie o instalowanym module. Wstrzyknięcie czegokolwiek przez konstruktor
  * kończyłoby się w tym momencie błędem i odrzuceniem całej definicji pola.

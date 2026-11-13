@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Kolejka oświadczeń o odstąpieniu — ekran domyślny zakładki.
+ * Kolejka oświadczeń o odstąpieniu: ekran domyślny zakładki.
  */
 class StatementsController extends WithdrawalController
 {

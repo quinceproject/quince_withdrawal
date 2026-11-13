@@ -1,4 +1,4 @@
-# Ekrany modułu — natywna zakładka pod Customer Service (zob. installTabs()
+# Ekrany modułu: natywna zakładka pod Customer Service (zob. installTabs()
 # w quince_withdrawal.php).
 #
 # `_legacy_controller` wskazuje WŁASNĄ zakładkę modułu (AdminQuinceWithdrawal),

@@ -35,7 +35,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Oświadczenie o odstąpieniu w Admin API.
  *
  * Confirm/accept/reject wołają DOKŁADNIE ten sam serwis
- * (`Quince\Withdrawal\Service\StatementWorkflow`) co przyciski panelu — ten
+ * (`Quince\Withdrawal\Service\StatementWorkflow`) co przyciski panelu: ten
  * sam mail do klienta, ten sam natywny zwrot towaru, te same reguły przejść.
  */
 #[ApiResource(
@@ -145,12 +145,12 @@ class Statement
     /** `submitted`, `acknowledged`, `accepted` or `rejected`. */
     public string $status = '';
 
-    /** Treść od klienta — prawo nie wymaga podania przyczyny, więc często puste. */
+    /** Treść od klienta. Prawo nie wymaga podania przyczyny, więc często puste. */
     public string $reason = '';
 
     public ?string $rejectReason = null;
 
-    /** ISO 8601 z sekundami i strefą — od tego biegnie termin na zwrot pieniędzy. */
+    /** ISO 8601 z sekundami i strefą. Od tego biegnie termin na zwrot pieniędzy. */
     public string $submittedAt = '';
 
     public string $updatedAt = '';
@@ -196,21 +196,21 @@ class Statement
 
     public ?string $settledAt = null;
 
-    /** `shop_form` (domyślnie — formularz klienta) albo `email`/`post`/`other` przy wpisie z zewnątrz. */
+    /** `shop_form` (domyślnie, formularz klienta) albo `email`/`post`/`other` przy wpisie z zewnątrz. */
     public string $channel = 'shop_form';
 
     /** Kto wpisał oświadczenie spoza formularza (pracownik systemu zewnętrznego). Puste dla `shop_form`. */
     public ?string $enteredBy = null;
 
-    /** Notatka wewnętrzna obsługi — nie trafia do klienta ani do PDF. */
+    /** Notatka wewnętrzna obsługi. Nie trafia do klienta ani do PDF. */
     public ?string $note = null;
 
-    /** Identyfikator po stronie systemu, który wpisał oświadczenie — do idempotencji zapisu. */
+    /** Identyfikator po stronie systemu, który wpisał oświadczenie. Do idempotencji zapisu. */
     public ?string $externalId = null;
 
     /**
      * Wyłącznie przy zapisie (`POST`): czy wysłać klientowi standardowy mail
-     * z PDF potwierdzenia. Domyślnie `true`. Pole zapisowe, nie odczytowe —
+     * z PDF potwierdzenia. Domyślnie `true`. Pole zapisowe, nie odczytowe:
      * odczyt nie mówi, czy mail faktycznie wyszedł.
      */
     public ?bool $sendConfirmation = null;

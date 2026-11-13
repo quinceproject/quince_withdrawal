@@ -43,7 +43,7 @@ final class Repository
         return is_array($rows) ? $rows : [];
     }
 
-    /** Liczba wszystkich oświadczeń sklepu — do wyliczenia stron. */
+    /** Liczba wszystkich oświadczeń sklepu, do wyliczenia stron. */
     public function count(int $idShop): int
     {
         return (int) Db::getInstance()->getValue(
@@ -52,7 +52,7 @@ final class Repository
     }
 
     /**
-     * Oświadczenia jednego klienta, przez wszystkie jego zamówienia — lista
+     * Oświadczenia jednego klienta, przez wszystkie jego zamówienia: lista
      * "Moje odstąpienia" w koncie klienta.
      *
      * @return array<int,array<string,mixed>>
@@ -72,7 +72,7 @@ final class Repository
     }
 
     /**
-     * Najnowsze oświadczenie dla zamówienia — do bloku na stronie zamówienia.
+     * Najnowsze oświadczenie dla zamówienia, do bloku na stronie zamówienia.
      * Bez filtra sklepu: zamówienie już wie, do którego sklepu należy.
      *
      * @return array<string,mixed>|null
@@ -91,7 +91,7 @@ final class Repository
     }
 
     /**
-     * Oświadczenie już zapisane pod tym identyfikatorem systemu zewnętrznego —
+     * Oświadczenie już zapisane pod tym identyfikatorem systemu zewnętrznego,
      * do idempotencji przy wpisywaniu z CEP. Drugie żądanie z tym samym
      * `externalId` ma zwrócić to, co już jest, nie założyć drugi wiersz.
      *
@@ -127,8 +127,8 @@ final class Repository
     }
 
     /**
-     * Pozycje zamówienia, do których odnosi się oświadczenie — całe zamówienie,
-     * nie wybrane pozycje (częściowe odstąpienie nie jest w zakresie v1).
+     * Pozycje zamówienia, do których odnosi się oświadczenie: całe zamówienie,
+     * nie wybrane pozycje (częściowe odstąpienie nie jest obsługiwane).
      *
      * @return array<int,array{id_order_detail:int,product_name:string,product_quantity:int,withdrawal_mode:string,unit_price:float,total_price:float}>
      */
@@ -157,7 +157,7 @@ final class Repository
     }
 
     /**
-     * Oświadczenia zmienione od danej chwili — do odpytywania przez Admin API
+     * Oświadczenia zmienione od danej chwili, do odpytywania przez Admin API
      * (CEP woła co ok. 5 min). `date_upd` musi się zmieniać przy KAŻDEJ
      * zmianie, łącznie z zapisem rozliczenia, inaczej CEP nigdy się o niej
      * nie dowie.
@@ -197,7 +197,7 @@ final class Repository
         return is_array($row) ? $row : null;
     }
 
-    /** Data pierwszego wejścia zamówienia w dany status — punkt startu terminu. */
+    /** Data pierwszego wejścia zamówienia w dany status: punkt startu terminu. */
     public function statusDate(int $idOrder, int $idOrderState): ?string
     {
         if ($idOrderState <= 0) {
@@ -221,7 +221,7 @@ final class Repository
     }
 
     /**
-     * Wszystkie oświadczenia sklepu w danym statusie, bez stronicowania — do
+     * Wszystkie oświadczenia sklepu w danym statusie, bez stronicowania, do
      * liczenia rzeczy po terminie, gdzie trzeba przejrzeć je wszystkie
      * niezależnie od tego, która strona listy akurat się wyświetla.
      *

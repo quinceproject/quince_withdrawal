@@ -1,6 +1,6 @@
 {**
- * "Moje odstąpienia" — ten sam układ co natywna lista "Zwroty produktów"
- * (customer/order-follow.tpl), żeby obie listy wyglądały jak jedna rodzina.
+ * "Moje odstąpienia": ten sam układ co natywna lista "Zwroty produktów"
+ * (customer/order-follow.tpl).
  *}
 {extends file='customer/page.tpl'}
 

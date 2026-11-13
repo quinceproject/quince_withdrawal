@@ -25,13 +25,13 @@ final class WithdrawalSettings
 {
     private const PREFIX = 'QUINCE_WITHDRAWAL_';
 
-    /** Prawo dotyczy każdego klienta — najbezpieczniejszy wybór, gdy sklep nie rozdziela B2B/B2C. */
+    /** Prawo dotyczy każdego klienta. Najbezpieczniejszy wybór, gdy sklep nie rozdziela B2B/B2C. */
     public const QUALIFICATION_ALL = 'all';
 
-    /** Zamówienie z nazwą firmy w adresie faktury traktujemy jako B2B — prawo nie dotyczy. */
+    /** Zamówienie z nazwą firmy w adresie faktury traktujemy jako B2B: prawo nie dotyczy. */
     public const QUALIFICATION_COMPANY_FIELD = 'company_field';
 
-    /** Rozpoznanie po grupie klienta — sklep sam decyduje, która grupa jest firmowa. */
+    /** Rozpoznanie po grupie klienta. Sklep sam decyduje, która grupa jest firmowa. */
     public const QUALIFICATION_CUSTOMER_GROUP = 'customer_group';
 
     public const TERM_DAYS_MIN = 14;
@@ -44,11 +44,11 @@ final class WithdrawalSettings
         'EXCLUDED_GROUP' => '0',
 
         // --- od czego liczy się termin ---
-        // Dostawa jest ustawowym startem terminu dla towaru — ale "dostawa"
+        // Dostawa jest ustawowym startem terminu dla towaru, ale "dostawa"
         // w PrestaShopie to status, który każdy sklep nazywa inaczej, więc
         // admin wskazuje, który z jego statusów naprawdę nią jest.
         'DELIVERY_STATUS' => '0',
-        // Dla usługi i treści cyfrowej termin liczy się od zawarcia umowy —
+        // Dla usługi i treści cyfrowej termin liczy się od zawarcia umowy:
         // domyślnie status płatności przyjętej, z możliwością zmiany.
         'SERVICE_START_STATUS' => '0',
         // Status, od którego treść cyfrową uznajemy za dostarczoną (decyduje
@@ -60,10 +60,9 @@ final class WithdrawalSettings
         'TERM_DAYS' => '14',
 
         // --- jak rozliczany jest zwrot pieniędzy ---
-        // Domyślnie przez natywne Credit Slips PrestaShopa — sklep, który
-        // fakturuje przez system zewnętrzny (gdzie korekta musi poprawiać
-        // TĘ konkretną fakturę), wyłącza to i obsługa dostaje neutralną
-        // instrukcję zamiast odesłania do ekranu, którego i tak nie używa.
+        // Domyślnie przez natywne Credit Slips PrestaShopa. Wyłączone (sklep
+        // fakturujący przez system zewnętrzny) daje obsłudze neutralną
+        // instrukcję zamiast odesłania do ekranu Credit Slips.
         'NATIVE_CREDIT_SLIP' => '1',
     ];
 
@@ -119,7 +118,7 @@ final class WithdrawalSettings
         return (int) $this->all($idShop)['SERVICE_START_STATUS'];
     }
 
-    /** Status dostarczenia treści cyfrowej — status dostawy towaru, gdy nic innego nie wybrano. */
+    /** Status dostarczenia treści cyfrowej. Status dostawy towaru, gdy nic innego nie wybrano. */
     public function digitalDeliveredStatus(?int $idShop = null): int
     {
         $own = (int) $this->all($idShop)['DIGITAL_DELIVERED_STATUS'];

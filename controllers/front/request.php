@@ -17,11 +17,10 @@ use Quince\Withdrawal\Service\StatementService;
 use Quince\Withdrawal\Settings\WithdrawalSettings;
 
 /**
- * Złożenie oświadczenia o odstąpieniu — formularz stoi w karcie na samej
+ * Złożenie oświadczenia o odstąpieniu. Formularz stoi w karcie na samej
  * stronie zamówienia (`hookDisplayOrderDetail`), ten kontroler tylko
  * przyjmuje POST i wraca na tę samą stronę. Status w karcie sam zmienia się
- * z formularza na potwierdzenie, więc osobny ekran potwierdzenia nie jest
- * potrzebny — tak samo jak przy natywnym "Zwrot towaru".
+ * z formularza na potwierdzenie, tak samo jak przy natywnym "Zwrot towaru".
  */
 class Quince_WithdrawalRequestModuleFrontController extends ModuleFrontController
 {

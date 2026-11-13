@@ -34,7 +34,7 @@ use PrestaShop\PrestaShop\Core\ExtraProperty\Definition\ExtraPropertyType;
 use Quince\Withdrawal\Form\WithdrawalModeChoiceType;
 
 /**
- * Quince Withdrawal — odstąpienie od umowy na odległość.
+ * Quince Withdrawal: odstąpienie od umowy na odległość.
  *
  * Dyrektywa 2023/2673 (nowy art. 11a dyrektywy 2011/83/UE) wymaga formularza
  * odstąpienia dostępnego online oraz niezwłocznego potwierdzenia jego przyjęcia
@@ -48,7 +48,7 @@ use Quince\Withdrawal\Form\WithdrawalModeChoiceType;
  */
 class Quince_Withdrawal extends Module
 {
-    /** Nazwa pola dodatkowego na produkcie — rdzeń zrobi z niej kolumnę `quince_withdrawal_mode`. */
+    /** Nazwa pola dodatkowego na produkcie. Rdzeń zrobi z niej kolumnę `quince_withdrawal_mode`. */
     public const FIELD_MODE = 'mode';
 
     private const DOMAIN_ADMIN = 'Modules.Quincewithdrawal.Admin';
@@ -125,7 +125,7 @@ class Quince_Withdrawal extends Module
 
     /**
      * Wpisy w `ps_module_shop` dla każdego sklepu instalacji, nie tylko tego
-     * z kontekstu — instalacja z konsoli stoi w kontekście sklepu domyślnego.
+     * z kontekstu: instalacja z konsoli stoi w kontekście sklepu domyślnego.
      *
      * @param array<int,int> $shops
      */
@@ -145,7 +145,7 @@ class Quince_Withdrawal extends Module
     }
 
     /**
-     * Wpisy w `ps_module_group` — bez nich żaden hook frontendowy się nie odpala.
+     * Wpisy w `ps_module_group`. Bez nich żaden hook frontendowy się nie odpala.
      */
     private function installModuleGroups(): bool
     {
@@ -182,8 +182,8 @@ class Quince_Withdrawal extends Module
 
         $sql = [];
 
-        // Oświadczenie o odstąpieniu. Jedno na zamówienie — wycofanie częściowe
-        // (tylko niektórych pozycji) nie jest w zakresie pierwszej wersji.
+        // Oświadczenie o odstąpieniu. Jedno na zamówienie: odstąpienie częściowe
+        // (tylko od niektórych pozycji) nie jest obsługiwane.
         $sql[] = "CREATE TABLE IF NOT EXISTS `{$p}quince_withdrawal` (
             `id_withdrawal` INT UNSIGNED NOT NULL AUTO_INCREMENT,
             `id_shop` INT UNSIGNED NOT NULL,
@@ -219,8 +219,8 @@ class Quince_Withdrawal extends Module
         ) ENGINE={$engine} DEFAULT CHARSET=utf8mb4;";
 
         // Zgoda na wczesne wykonanie usługi / dostarczenie treści cyfrowej,
-        // zebrana PRZY KONKRETNYM ZAMÓWIENIU (nie przez moduł zgód) — decyzja
-        // sklepu: ta zgoda jest zdarzeniem handlowym, nie zgodą marketingową.
+        // zebrana PRZY KONKRETNYM ZAMÓWIENIU (nie przez moduł zgód), bo jest
+        // zdarzeniem handlowym, nie zgodą marketingową.
         // Tekst oświadczenia jest zapisany razem ze zgodą, bo jego treść może
         // się zmienić w ustawieniach, a dowód musi pokazywać to, co klient
         // naprawdę zaakceptował w chwili zamówienia.
@@ -261,7 +261,7 @@ class Quince_Withdrawal extends Module
     }
 
     // =========================================================================
-    // ZAKŁADKA — natywna, pod Customer Service, siostra "Merchandise Returns".
+    // ZAKŁADKA: natywna, pod Customer Service, siostra "Merchandise Returns".
     // Odstąpienie to proces obsługi zamówień, nie wygląd ani dane produktu,
     // więc NIE wchodzi do panelu Quince (zob. ModuleCatalogue w quince_engine).
     // =========================================================================
@@ -300,7 +300,7 @@ class Quince_Withdrawal extends Module
     }
 
     // =========================================================================
-    // POLE DODATKOWE PRODUKTU — wyjątek z prawa odstąpienia
+    // POLE DODATKOWE PRODUKTU: wyjątek z prawa odstąpienia
     // =========================================================================
 
     private function installFields(): bool
@@ -322,7 +322,7 @@ class Quince_Withdrawal extends Module
     }
 
     /**
-     * Admin-only: pole o wyjątku NIE jest treścią dla klienta — to, co klient
+     * Admin-only: pole o wyjątku NIE jest treścią dla klienta. To, co klient
      * ma przeczytać, pisze front modułu własnym tekstem prawnym, nie wartością
      * tego pola. `displayFront: false` trzyma je wyłącznie w panelu.
      *
@@ -376,7 +376,7 @@ class Quince_Withdrawal extends Module
     }
 
     // =========================================================================
-    // KONTO KLIENTA — wyzwalacz formularza albo status istniejącego
+    // KONTO KLIENTA: wyzwalacz formularza albo status istniejącego
     // oświadczenia na stronie szczegółu zamówienia.
     // =========================================================================
 
@@ -420,7 +420,7 @@ class Quince_Withdrawal extends Module
     }
 
     // =========================================================================
-    // BLOK NA STRONIE ZAMÓWIENIA — tylko gdy dla tego zamówienia istnieje
+    // BLOK NA STRONIE ZAMÓWIENIA: tylko gdy dla tego zamówienia istnieje
     // oświadczenie; puste zamówienia nie dostają pustej karty.
     // =========================================================================
 
@@ -449,11 +449,10 @@ class Quince_Withdrawal extends Module
     }
 
     // =========================================================================
-    // ZGODA NA WCZESNE WYKONANIE — checkbox na kasie, TYLKO gdy koszyk zawiera
+    // ZGODA NA WCZESNE WYKONANIE: checkbox na kasie, TYLKO gdy koszyk zawiera
     // usługę albo treść cyfrową. Wpięty przez natywny hook `termsAndConditions`,
     // nie własny szablon: dzięki temu dziedziczy TĘ SAMĄ walidację (required,
-    // blokadę złożenia zamówienia), co "akceptuję regulamin" — bez pisania
-    // własnej, ryzykownej logiki blokującej kasę.
+    // blokadę złożenia zamówienia), co "akceptuję regulamin".
     // =========================================================================
 
     /** @return \PrestaShop\PrestaShop\Core\Checkout\TermsAndConditions|null */
@@ -490,8 +489,8 @@ class Quince_Withdrawal extends Module
     }
 
     /**
-     * Zgoda jest zapisywana PRZY ZAMÓWIENIU (nie przez moduł zgód) — decyzja
-     * sklepu: to zdarzenie handlowe, nie zgoda marketingowa.
+     * Zgoda jest zapisywana PRZY ZAMÓWIENIU (nie przez moduł zgód), bo to
+     * zdarzenie handlowe, nie zgoda marketingowa.
      */
     public function hookActionValidateOrder(array $params): void
     {
@@ -526,7 +525,7 @@ class Quince_Withdrawal extends Module
     }
 
     // =========================================================================
-    // SIDEBAR KONTA — link do listy "Moje odstąpienia", tym samym hookiem co
+    // SIDEBAR KONTA: link do listy "Moje odstąpienia", tym samym hookiem co
     // lista życzeń i RODO (zob. komentarz w account-menu.tpl: moduły dokładają
     // tu surowe <a>, motyw sam je ujednolica).
     // =========================================================================
@@ -535,10 +534,9 @@ class Quince_Withdrawal extends Module
     {
         $url = $this->context->link->getModuleLink('quince_withdrawal', 'mine');
         // Ta sama ikona co "Moje pokwitowania - korekty płatności" w tym samym
-        // sidebarze (account-menu.tpl) — oświadczenie jest tym samym gatunkiem
-        // rzeczy co korekta: dokumentem przypisanym do zamówienia. Pierwsza
-        // próba (własna ścieżka w konwencji stroke) nie pasowała do reszty —
-        // sidebar rysuje ikony jako wypełnione kształty, nie obrysy.
+        // sidebarze (account-menu.tpl): oświadczenie jest, jak korekta,
+        // dokumentem przypisanym do zamówienia. Sidebar rysuje ikony jako
+        // wypełnione kształty, nie obrysy.
         $icon = '<svg class="q-account-nav__icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">'
             . '<path d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z"/>'
             . '<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1"/>'
@@ -546,7 +544,7 @@ class Quince_Withdrawal extends Module
 
         // Pozycje z tego haka dzielą jedno <li> na wszystkie moduły naraz
         // (account-menu.tpl), więc aktywność nie może siedzieć na <li> jak
-        // u natywnych wpisów — zaznacza ją własny <a> tego modułu.
+        // u natywnych wpisów. Zaznacza ją własny <a> tego modułu.
         $isActive = $this->context->controller instanceof Quince_WithdrawalMineModuleFrontController;
         $class = $isActive ? ' class="is-active"' : '';
         $ariaCurrent = $isActive ? ' aria-current="page"' : '';

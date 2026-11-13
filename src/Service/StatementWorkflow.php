@@ -22,7 +22,7 @@ use Quince\Withdrawal\Settings\WithdrawalSettings;
 /**
  * Przejścia statusu oświadczenia: potwierdź, przyjmij zwrot, odrzuć.
  *
- * Jedno miejsce dla panelu i Admin API — oba mają wołać dokładnie ten sam
+ * Jedno miejsce dla panelu i Admin API: oba mają wołać dokładnie ten sam
  * kod, żeby mail do klienta, natywny zwrot towaru i reguły przejść nie
  * rozjechały się w dwóch kopiach.
  */
@@ -51,8 +51,7 @@ final class StatementWorkflow
             $return->id_customer = (int) $statement['id_customer'];
             $return->id_order = $idOrder;
             // Stan 2 = "Waiting for package": sklep już potwierdził przez to
-            // oświadczenie, więc pomijamy stan 1 (Waiting for confirmation) —
-            // ten etap withdrawal już przeszedł.
+            // oświadczenie, więc pomijamy stan 1 (Waiting for confirmation).
             $return->state = 2;
             $return->question = sprintf(
                 'Automatically created from withdrawal statement %s.',
@@ -96,9 +95,9 @@ final class StatementWorkflow
         }
 
         // Zwrot środków: wystawienie korekty idzie przez natywny ekran Credit
-        // Slips tego zamówienia (albo przez CEP przy ustawieniu "cep") — tu
-        // tylko status. Automatyczne wystawianie korekty wymaga przeliczenia
-        // kwot zamówienia i zostaje na osobny etap, żeby nie zgadywać kwoty.
+        // Slips tego zamówienia (albo przez CEP przy ustawieniu "cep"). Tu
+        // tylko status: automatyczne wystawianie korekty wymagałoby
+        // przeliczenia kwot zamówienia.
         Db::getInstance()->update(
             'quince_withdrawal',
             ['status' => 'accepted', 'date_upd' => date('Y-m-d H:i:s')],
@@ -154,7 +153,7 @@ final class StatementWorkflow
      * Zdarzenie wychodzące ze sklepu.
      *
      * Odbiorcę wskazuje sklep w module `quince_events`, w jego ekranie
-     * ustawień — ten moduł nie zna ani adresu, ani tego, co stoi po drugiej
+     * ustawień. Ten moduł nie zna ani adresu, ani tego, co stoi po drugiej
      * stronie. Bez zainstalowanego `quince_events` nie dzieje się nic,
      * a przejście statusu i tak jest zapisane.
      *

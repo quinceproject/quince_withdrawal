@@ -84,7 +84,7 @@ class StatementController extends WithdrawalController
             $this->addFlash('success', $this->trans('Statement confirmed.', self::DOMAIN));
         } catch (StatementNotFoundException|InvalidTransitionException $e) {
             // Cicho wracamy na szczegół: to te same strażniki co przy pierwszym
-            // kliknięciu — drugie żądanie (podwójny klik, cofnięcie w przeglądarce)
+            // kliknięciu. Drugie żądanie (podwójny klik, cofnięcie w przeglądarce)
             // ma po prostu nic nie zmienić, a nie pokazywać błąd.
         }
 

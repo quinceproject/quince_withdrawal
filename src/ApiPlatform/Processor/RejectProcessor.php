@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * **Zapisywalne jest wyłącznie `rejectReason`.** `id` bierzemy wyłącznie
- * z adresu, a `shopId` wyłącznie z zapytania — nigdy z ciała, które mogłoby
+ * z adresu, a `shopId` wyłącznie z zapytania. Nigdy z ciała, które mogłoby
  * nadpisać odczytany wcześniej zasób (ten sam wzorzec co w każdym innym
  * endpoincie tego modułu).
  *

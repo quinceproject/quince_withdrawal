@@ -21,7 +21,7 @@ use Quince\Withdrawal\Settings\WithdrawalSettings;
 use Validate;
 
 /**
- * Termin i kwalifikacja "towar czy usługa" dla zamówienia — jedno miejsce,
+ * Termin i kwalifikacja "towar czy usługa" dla zamówienia. Jedno miejsce,
  * bo panel i front muszą liczyć je identycznie.
  */
 final class DeadlineCalculator
@@ -53,7 +53,7 @@ final class DeadlineCalculator
     /**
      * Rodzaj zamówienia dla liczenia terminu: towar liczy od dostawy, usługa
      * od zawarcia umowy, treść cyfrowa od własnego statusu „dostarczono"
-     * (Art. 16(m) — osobny wyjątek, nie to samo zdarzenie co usługa).
+     * (Art. 16(m): osobny wyjątek, nie to samo zdarzenie co usługa).
      * Zamówienie mieszane bierze najwęższy przypadek: treść cyfrowa przed
      * usługą, usługa przed towarem.
      */
@@ -84,7 +84,7 @@ final class DeadlineCalculator
 
     /**
      * Czy dziś jest jeszcze w terminie. Zdarzenie, które jeszcze nie zaszło
-     * (towar w drodze), nie blokuje — termin po prostu jeszcze się nie zaczął,
+     * (towar w drodze), nie blokuje: termin po prostu jeszcze się nie zaczął,
      * a prawo odstąpienia działa już od zawarcia umowy.
      */
     public function isWithinDeadline(int $idOrder, int $idShop): bool
@@ -100,7 +100,7 @@ final class DeadlineCalculator
 
     /**
      * Czy zamówieniu w ogóle przysługuje prawo odstąpienia, niezależnie od
-     * terminu — ustawienie „Kto ma prawo odstąpienia" wyklucza zamówienia
+     * terminu. Ustawienie „Kto ma prawo odstąpienia" wyklucza zamówienia
      * firmowe, gdy sklep tak skonfigurował.
      */
     public function isEligibleCustomer(Order $order): bool
@@ -129,7 +129,7 @@ final class DeadlineCalculator
         }
     }
 
-    /** Jedno miejsce łączące oba warunki: kwalifikację klienta i termin — tego samego używa hak na stronie zamówienia i zapis formularza. */
+    /** Jedno miejsce łączące oba warunki: kwalifikację klienta i termin. Tego samego używa hak na stronie zamówienia i zapis formularza. */
     public function isEligible(Order $order): bool
     {
         return $this->isEligibleCustomer($order) && $this->isWithinDeadline((int) $order->id, (int) $order->id_shop);

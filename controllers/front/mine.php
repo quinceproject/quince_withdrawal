@@ -14,7 +14,7 @@ if (!defined('_PS_VERSION_')) {
 use Quince\Withdrawal\Repository;
 
 /**
- * "Moje odstąpienia" — lista oświadczeń klienta przez wszystkie zamówienia.
+ * "Moje odstąpienia": lista oświadczeń klienta przez wszystkie zamówienia.
  * Ten sam wzorzec co natywna lista "Zwroty produktów" (order-follow.tpl).
  */
 class Quince_WithdrawalMineModuleFrontController extends ModuleFrontController

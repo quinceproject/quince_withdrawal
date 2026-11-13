@@ -15,7 +15,7 @@ use RuntimeException;
 
 /**
  * Zamówienie, dla którego próbujemy zapisać oświadczenie z zewnątrz, już je
- * ma — pod innym `externalId`. Osobna klasa od {@see InvalidStatementDataException},
+ * ma, pod innym `externalId`. Osobna klasa od {@see InvalidStatementDataException},
  * bo mapuje się na `409`, nie `422`: to nie błąd danych żądania, tylko
  * konflikt ze stanem, który już istnieje.
  */

@@ -26,11 +26,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Zapis rozliczenia odesłany przez CEP (albo dowolny inny system
  * zewnętrzny): kiedy i jak pieniądze faktycznie wróciły do klienta.
  *
- * Status `accepted` sam w sobie nie oznacza zwrotu pieniędzy — to tylko
+ * Status `accepted` sam w sobie nie oznacza zwrotu pieniędzy, to tylko
  * zgoda sklepu. To jedyne miejsce, które zapisuje, że zwrot faktycznie
  * się odbył.
  *
- * **`id_shop` nie wchodzi do WHERE przy `UPDATE` poniżej** — to `shopId`
+ * **`id_shop` nie wchodzi do WHERE przy `UPDATE` poniżej.** `shopId`
  * jest jedynym filtrem sklepu w tej operacji, więc musi pochodzić z
  * zapytania, nigdy z ciała: ciało mogłoby nadpisać odczytany wcześniej
  * zasób i wskazać zapis do wiersza innego sklepu.
@@ -115,7 +115,7 @@ final class SettlementProcessor implements ProcessorInterface
      * Zdarzenie wychodzące ze sklepu.
      *
      * Odbiorcę wskazuje sklep w module `quince_events`, w jego ekranie
-     * ustawień — ten moduł nie zna ani adresu, ani tego, co stoi po drugiej
+     * ustawień. Ten moduł nie zna ani adresu, ani tego, co stoi po drugiej
      * stronie. Bez zainstalowanego `quince_events` nie dzieje się nic,
      * a rozliczenie i tak jest zapisane.
      *

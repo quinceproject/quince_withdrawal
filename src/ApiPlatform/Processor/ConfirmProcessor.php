@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * **Zapisywalne jest wyłącznie przejście statusu.** Zasób nie ma grup
  * serializacji, więc ciało żądania mogłoby nieść też `id`/`shopId` i
- * nadpisać nimi odczytany wcześniej zasób — stąd `id` bierzemy wyłącznie
+ * nadpisać nimi odczytany wcześniej zasób. Stąd `id` bierzemy wyłącznie
  * z adresu, a `shopId` wyłącznie z zapytania, tak jak w każdym innym
  * endpoincie tego modułu.
  *

@@ -18,7 +18,7 @@ use Quince\Withdrawal\Repository;
 use Quince\Withdrawal\Settings\WithdrawalSettings;
 
 /**
- * Złożenie oświadczenia: zapis, numer, PDF i mail potwierdzający — jedno
+ * Złożenie oświadczenia: zapis, numer, PDF i mail potwierdzający. Jedno
  * miejsce, bo wszystkie trzy muszą zajść razem albo wcale.
  */
 final class StatementService
@@ -36,7 +36,7 @@ final class StatementService
      *        (np. mail, list); `null` = teraz, czyli zawsze dla formularza klienta
      * @param string $channel `shop_form` (domyślny, formularz klienta), `email`, `post`, `other`
      * @param string|null $enteredBy kto wpisał oświadczenie spoza formularza (pracownik CEP)
-     * @param string|null $note notatka wewnętrzna — nie trafia do klienta ani do PDF
+     * @param string|null $note notatka wewnętrzna, nie trafia do klienta ani do PDF
      * @param string|null $externalId identyfikator po stronie systemu, który wpisał oświadczenie
      *
      * @return array<string,mixed>|null oświadczenie zapisane w bazie, albo null przy błędzie
@@ -65,7 +65,7 @@ final class StatementService
             'id_shop' => $idShop,
             'id_order' => (int) $order->id,
             'id_customer' => (int) $customer->id,
-            // Placeholder unikalny na czas między insertem a nadaniem numeru —
+            // Placeholder unikalny na czas między insertem a nadaniem numeru:
             // UNIQUE KEY na `reference` wymaga czegoś już teraz.
             'reference' => 'TMP-' . bin2hex(random_bytes(8)),
             'status' => 'submitted',
@@ -76,7 +76,7 @@ final class StatementService
             'entered_by' => $enteredBy !== null && $enteredBy !== '' ? $enteredBy : null,
             'note' => $note !== null && $note !== '' ? $note : null,
             'external_id' => $externalId !== null && $externalId !== '' ? $externalId : null,
-            // Data złożenia (prawnie wiążąca — od niej liczy się termin) i data
+            // Data złożenia (prawnie wiążąca, od niej liczy się termin) i data
             // ostatniej zmiany wiersza (zawsze "teraz") to dwie różne rzeczy:
             // oświadczenie wpisane z opóźnieniem ma `date_add` z przeszłości,
             // ale `date_upd` musi pokazywać, kiedy wiersz realnie powstał.
@@ -122,7 +122,7 @@ final class StatementService
         return $statement;
     }
 
-    /** `ODST/{rok}/{numer na 6 cyfr}` — rok z daty złożenia, numer z klucza wiersza. */
+    /** `ODST/{rok}/{numer na 6 cyfr}`: rok z daty złożenia, numer z klucza wiersza. */
     private function reference(int $id): string
     {
         return sprintf('ODST/%s/%06d', date('Y'), $id);
@@ -132,7 +132,7 @@ final class StatementService
      * Zdarzenie wychodzące ze sklepu.
      *
      * Odbiorcę wskazuje sklep w module `quince_events`, w jego ekranie
-     * ustawień — ten moduł nie zna ani adresu, ani tego, co stoi po drugiej
+     * ustawień. Ten moduł nie zna ani adresu, ani tego, co stoi po drugiej
      * stronie. Bez zainstalowanego `quince_events` nie dzieje się nic,
      * a oświadczenie i tak jest zapisane.
      *

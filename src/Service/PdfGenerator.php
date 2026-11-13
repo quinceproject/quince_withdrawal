@@ -17,10 +17,10 @@ use Context;
 use Order;
 
 /**
- * Potwierdzenie przyjęcia oświadczenia — dokument na trwałym nośniku.
+ * Potwierdzenie przyjęcia oświadczenia: dokument na trwałym nośniku.
  *
  * Strona WWW nie jest trwałym nośnikiem w rozumieniu prawa (sklep mógłby ją
- * zmienić) — klient ma dostać coś, co zostaje poza kontrolą sklepu. Plik ląduje
+ * zmienić). Klient ma dostać coś, co zostaje poza kontrolą sklepu. Plik ląduje
  * w `var/`, poza katalogiem serwowanym wprost, i wychodzi wyłącznie jako
  * załącznik maila.
  */

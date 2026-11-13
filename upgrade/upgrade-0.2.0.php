@@ -14,13 +14,13 @@ if (!defined('_PS_VERSION_')) {
 }
 
 /**
- * 0.2.0 — oświadczenia wpisywane z zewnątrz (CEP) i rozliczenie.
+ * 0.2.0: oświadczenia wpisywane z zewnątrz (CEP) i rozliczenie.
  *
- * Dokłada kolumny `channel`/`entered_by`/`note`/`external_id` (nowy
- * endpoint `POST /quince-withdrawal/statements`) oraz, defensywnie,
- * `reject_reason`/`settlement_*`, które w tym sklepie trafiły do bazy
- * wcześniej ręcznym `ALTER TABLE` bez wersjonowania — żeby instalacja,
- * która realnie startowała z 0.1.0, dogoniła ten sam schemat.
+ * Dokłada kolumny `channel`/`entered_by`/`note`/`external_id` (endpoint
+ * `POST /quince-withdrawal/statements`) oraz, defensywnie,
+ * `reject_reason`/`settlement_*`, które mogły trafić do bazy ręcznym
+ * `ALTER TABLE` bez wersjonowania. Instalacja startująca z 0.1.0 dochodzi
+ * do tego samego schematu.
  *
  * Sprawdzane po nazwie kolumny, nie dodawane na ślepo: `ALTER TABLE ADD
  * COLUMN` na kolumnie, która już jest, wywraca się błędem.

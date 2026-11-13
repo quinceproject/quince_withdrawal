@@ -28,10 +28,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Validate;
 
 /**
- * Zapisuje oświadczenie, które klient złożył POZA formularzem sklepu —
- * mailem, listem albo innym jednoznacznym sposobem, wpisane przez obsługę
- * w CEP. Woła ten sam `StatementService::submit()`, co formularz klienta —
- * ten sam numer, PDF, mail, zdarzenie `withdrawal.submitted` — tylko
+ * Zapisuje oświadczenie, które klient złożył POZA formularzem sklepu
+ * (mailem, listem albo innym jednoznacznym sposobem), wpisane przez obsługę
+ * w CEP. Woła ten sam `StatementService::submit()`, co formularz klienta:
+ * ten sam numer, PDF, mail, zdarzenie `withdrawal.submitted`, tylko
  * z datą złożenia podaną w żądaniu zamiast chwili zapisu.
  *
  * @implements ProcessorInterface<Statement, Statement>
@@ -77,7 +77,7 @@ final class CreateProcessor implements ProcessorInterface
             throw new InvalidStatementDataException('enteredBy is required.');
         }
 
-        // Limity kolumn (`varchar(255)`/`varchar(64)`/`text`) — inaczej
+        // Limity kolumn (`varchar(255)`/`varchar(64)`/`text`). Inaczej
         // przekroczenie wywala surowy błąd SQL w trybie strict, nie czysty
         // 422 z nazwą pola.
         if (mb_strlen($data->enteredBy) > 255) {
@@ -122,7 +122,7 @@ final class CreateProcessor implements ProcessorInterface
             return $mapper->map($istniejace);
         }
 
-        // Jedno zamówienie, jedno oświadczenie — ta sama reguła co formularz
+        // Jedno zamówienie, jedno oświadczenie: ta sama reguła co formularz
         // klienta (`request.php`, `Repository::getByOrder()`). CEP ma się
         // podpiąć do istniejącego, więc błąd niesie jego id i referencję,
         // nie tylko informację, że zapis się nie udał.
@@ -163,7 +163,7 @@ final class CreateProcessor implements ProcessorInterface
         }
 
         // `DateTimeImmutable` sam przyjąłby też "now", "+1 day" czy gołą
-        // datę bez strefy — kontrakt wymaga konkretnie ISO 8601 z offsetem,
+        // datę bez strefy. Kontrakt wymaga konkretnie ISO 8601 z offsetem,
         // więc sprawdzamy to jawnie, zamiast ufać wszystkiemu, co sparsuje.
         if (preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/', $value) !== 1) {
             throw new InvalidStatementDataException(

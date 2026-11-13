@@ -17,8 +17,8 @@ use Mail;
 use Order;
 
 /**
- * Mail potwierdzający przyjęcie oświadczenia, z PDF-em jako załącznikiem —
- * to on jest trwałym nośnikiem, nie ekran w przeglądarce.
+ * Mail potwierdzający przyjęcie oświadczenia, z PDF-em jako załącznikiem.
+ * To on jest trwałym nośnikiem, nie ekran w przeglądarce.
  */
 final class StatementMailer
 {

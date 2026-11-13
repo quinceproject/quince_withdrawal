@@ -20,7 +20,7 @@ use Quince\Withdrawal\Settings\WithdrawalSettings;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Oświadczenia czytane przez Admin API — te same wiersze i ta sama logika
+ * Oświadczenia czytane przez Admin API: te same wiersze i ta sama logika
  * terminu co panel (`DeadlineCalculator`), żeby CEP nie liczył niczego
  * po swojemu z ryzykiem rozjazdu.
  *

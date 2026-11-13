@@ -2,7 +2,7 @@
  * Karta "prawo odstąpienia" na stronie szczegółu zamówienia klienta.
  *
  * Ten sam wzorzec co "Zwrot towaru" (order-detail-return.tpl): formularz
- * stoi od razu w karcie, bez osobnej strony — wysyłka wraca na tę samą
+ * stoi od razu w karcie, bez osobnej strony. Wysyłka wraca na tę samą
  * stronę zamówienia, a status w karcie sam się zmienia z formularza na
  * potwierdzenie.
  *}
