@@ -101,6 +101,11 @@ $stub = <<<'PHP'
  * @copyright Since 2026 Marcin Gajewski
  * @license   https://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2.0 only
  */
+// Wczytany przez inny skrypt (np. API Platform skanuje src/ApiPlatform/Resources
+// przy budowie kontenera panelu) nie może przekierować ani zakończyć procesu.
+if (realpath((string) ($_SERVER['SCRIPT_FILENAME'] ?? '')) !== __FILE__) {
+    return;
+}
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-store, no-cache, must-revalidate');
