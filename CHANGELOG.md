@@ -4,6 +4,13 @@ All notable changes to this module are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the versioning follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.6] - 2026-11-15
+
+### Security
+
+- The `libs/` folder is closed to the web, and an unused mPDF script that read a file
+  name from the request is removed.
+
 ## [0.2.5] - 2026-11-15
 
 ### Security
