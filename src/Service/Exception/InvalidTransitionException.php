@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace Quince\Withdrawal\Service\Exception;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use RuntimeException;
 
 /** Akcja nie pasuje do bieżącego statusu oświadczenia (np. drugie "Confirm" na już potwierdzonym). */

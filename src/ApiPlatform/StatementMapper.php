@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace Quince\Withdrawal\ApiPlatform;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use Quince\Withdrawal\ApiPlatform\Resources\Statement;
 use Quince\Withdrawal\Repository;
 use Quince\Withdrawal\Service\DeadlineCalculator;

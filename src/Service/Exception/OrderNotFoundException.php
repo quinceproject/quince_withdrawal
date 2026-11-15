@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace Quince\Withdrawal\Service\Exception;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use RuntimeException;
 
 /** Zamówienie wskazane w żądaniu nie istnieje w tym sklepie. */

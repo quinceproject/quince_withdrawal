@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace Quince\Withdrawal\Controller\Admin;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use Db;
 use Group;
 use PrestaShopBundle\Security\Attribute\AdminSecurity;
