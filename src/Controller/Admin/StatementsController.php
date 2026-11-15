@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quince\Withdrawal\Controller\Admin;
 
+use PrestaShopBundle\Security\Attribute\AdminSecurity;
 use Quince\Withdrawal\Repository;
 use Quince\Withdrawal\Service\DeadlineCalculator;
 use Quince\Withdrawal\Settings\WithdrawalSettings;
@@ -28,6 +29,7 @@ class StatementsController extends WithdrawalController
     ) {
     }
 
+    #[AdminSecurity("is_granted('read', request.get('_legacy_controller'))", message: 'You do not have permission to view this.')]
     public function indexAction(Request $request): Response
     {
         $idShop = $this->getContextShopId();

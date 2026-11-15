@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quince\Withdrawal\Controller\Admin;
 
+use PrestaShopBundle\Security\Attribute\AdminSecurity;
 use Quince\Withdrawal\Repository;
 use Quince\Withdrawal\Service\DeadlineCalculator;
 use Quince\Withdrawal\Service\Exception\InvalidTransitionException;
@@ -36,6 +37,7 @@ class StatementController extends WithdrawalController
     ) {
     }
 
+    #[AdminSecurity("is_granted('read', request.get('_legacy_controller'))", message: 'You do not have permission to view this.')]
     public function indexAction(int $id): Response
     {
         $idShop = $this->getContextShopId();
@@ -69,6 +71,7 @@ class StatementController extends WithdrawalController
         );
     }
 
+    #[AdminSecurity("is_granted('update', request.get('_legacy_controller'))", message: 'You do not have permission to change this.')]
     public function confirmAction(int $id, Request $request): RedirectResponse
     {
         if (!$this->isCsrfTokenValid('quince_withdrawal_statement_confirm', $request->request->get('_csrf_token'))) {
@@ -91,6 +94,7 @@ class StatementController extends WithdrawalController
         return $this->redirectToRoute('quince_withdrawal_statement', ['id' => $id]);
     }
 
+    #[AdminSecurity("is_granted('update', request.get('_legacy_controller'))", message: 'You do not have permission to change this.')]
     public function acceptAction(int $id, Request $request): RedirectResponse
     {
         if (!$this->isCsrfTokenValid('quince_withdrawal_statement_accept', $request->request->get('_csrf_token'))) {
@@ -114,6 +118,7 @@ class StatementController extends WithdrawalController
         return $this->redirectToRoute('quince_withdrawal_statement', ['id' => $id]);
     }
 
+    #[AdminSecurity("is_granted('update', request.get('_legacy_controller'))", message: 'You do not have permission to change this.')]
     public function rejectAction(int $id, Request $request): RedirectResponse
     {
         if (!$this->isCsrfTokenValid('quince_withdrawal_statement_reject', $request->request->get('_csrf_token'))) {
@@ -138,6 +143,7 @@ class StatementController extends WithdrawalController
         return $this->redirectToRoute('quince_withdrawal_statement', ['id' => $id]);
     }
 
+    #[AdminSecurity("is_granted('read', request.get('_legacy_controller'))", message: 'You do not have permission to view this.')]
     public function pdfAction(int $id): Response
     {
         $idShop = $this->getContextShopId();

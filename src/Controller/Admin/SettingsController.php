@@ -13,6 +13,7 @@ namespace Quince\Withdrawal\Controller\Admin;
 
 use Db;
 use Group;
+use PrestaShopBundle\Security\Attribute\AdminSecurity;
 use Quince\Withdrawal\Settings\WithdrawalSettings;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,7 @@ class SettingsController extends WithdrawalController
     {
     }
 
+    #[AdminSecurity("is_granted('read', request.get('_legacy_controller'))", message: 'You do not have permission to view this.')]
     public function indexAction(): Response
     {
         $idLang = (int) $this->getContext()->language->id;
@@ -43,6 +45,7 @@ class SettingsController extends WithdrawalController
         );
     }
 
+    #[AdminSecurity("is_granted('update', request.get('_legacy_controller'))", message: 'You do not have permission to change this.')]
     public function saveAction(Request $request): RedirectResponse
     {
         if (!$this->isCsrfTokenValid('quince_withdrawal_settings_save', $request->request->get('_csrf_token'))) {

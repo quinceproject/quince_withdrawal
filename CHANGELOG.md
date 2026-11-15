@@ -4,6 +4,16 @@ All notable changes to this module are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the versioning follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.5] - 2026-11-15
+
+### Security
+
+- Every back-office screen of the module checks the employee's permissions on the
+  **Withdrawals** tab (`AdminQuinceWithdrawal`). Before, any logged-in employee, whatever
+  their profile, could open the register of statements and accept or reject them.
+  Grant the tab to a profile under **Advanced Parameters → Team → Permissions**;
+  SuperAdmin needs nothing.
+
 ## [0.2.4] - 2026-11-15
 
 ### Security
