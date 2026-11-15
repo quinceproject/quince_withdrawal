@@ -57,7 +57,7 @@ class Quince_Withdrawal extends Module
     {
         $this->name = 'quince_withdrawal';
         $this->tab = 'administration';
-        $this->version = '0.2.3';
+        $this->version = '0.2.4';
         $this->author = 'Quince Project';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = ['min' => '9.2.0', 'max' => '9.99.99'];
@@ -397,6 +397,8 @@ class Quince_Withdrawal extends Module
             'eligible' => false,
             'requestUrl' => '',
             'termDays' => $settings->termDays((int) $order->id_shop),
+            // Token strony sprawdzany w kontrolerze `request` przed złożeniem oświadczenia.
+            'withdrawalToken' => Tools::getToken(false),
         ];
 
         if ($statement !== null) {

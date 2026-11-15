@@ -61,6 +61,11 @@ final class StatementService
         $teraz = date('Y-m-d H:i:s');
         $dataZlozenia = $submittedAt !== null ? $submittedAt->format('Y-m-d H:i:s') : $teraz;
 
+        // `Db::insert()` wkleja wartości w apostrofy bez escapowania, więc każdy
+        // tekst musi przejść przez pSQL(). `reason` pisze klient, `entered_by`,
+        // `note` i `external_id` przychodzą z Admin API.
+        $tekst = static fn (?string $v): ?string => $v !== null && $v !== '' ? pSQL($v) : null;
+
         $inserted = Db::getInstance()->insert('quince_withdrawal', [
             'id_shop' => $idShop,
             'id_order' => (int) $order->id,
@@ -69,13 +74,13 @@ final class StatementService
             // UNIQUE KEY na `reference` wymaga czegoś już teraz.
             'reference' => 'TMP-' . bin2hex(random_bytes(8)),
             'status' => 'submitted',
-            'reason' => $reason !== '' ? $reason : null,
-            'customer_name' => $customer->firstname . ' ' . $customer->lastname,
-            'customer_email' => (string) $customer->email,
-            'channel' => $channel,
-            'entered_by' => $enteredBy !== null && $enteredBy !== '' ? $enteredBy : null,
-            'note' => $note !== null && $note !== '' ? $note : null,
-            'external_id' => $externalId !== null && $externalId !== '' ? $externalId : null,
+            'reason' => $tekst(mb_substr($reason, 0, 2000)),
+            'customer_name' => pSQL($customer->firstname . ' ' . $customer->lastname),
+            'customer_email' => pSQL((string) $customer->email),
+            'channel' => pSQL($channel),
+            'entered_by' => $tekst($enteredBy),
+            'note' => $tekst($note),
+            'external_id' => $tekst($externalId),
             // Data złożenia (prawnie wiążąca, od niej liczy się termin) i data
             // ostatniej zmiany wiersza (zawsze "teraz") to dwie różne rzeczy:
             // oświadczenie wpisane z opóźnieniem ma `date_add` z przeszłości,

@@ -29,6 +29,8 @@
     </div>
 
     <form method="post" action="{$requestUrl}" class="q-order-address">
+      <input type="hidden" name="token" value="{$withdrawalToken}">
+
       <label class="form-label" for="q-withdrawal-reason">{l s='Reason (optional)' d='Modules.Quincewithdrawal.Shop'}</label>
       <textarea
         rows="3"

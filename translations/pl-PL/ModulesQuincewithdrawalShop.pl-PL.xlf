@@ -7,6 +7,10 @@
         <source>Your withdrawal request has been submitted.</source>
         <target>Oświadczenie o odstąpieniu od umowy zostało złożone.</target>
       </trans-unit>
+      <trans-unit id="quince.withdrawal.shop.form-rejected">
+        <source>We could not accept this form. Please reload the page and try again.</source>
+        <target>Nie mogliśmy przyjąć tego formularza. Odśwież stronę i spróbuj ponownie.</target>
+      </trans-unit>
       <trans-unit id="quince.withdrawal.shop.not-eligible">
         <source>The right of withdrawal no longer applies to this order.</source>
         <target>Prawo odstąpienia od umowy nie przysługuje już dla tego zamówienia.</target>

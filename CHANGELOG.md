@@ -4,6 +4,18 @@ All notable changes to this module are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the versioning follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4] - 2026-11-15
+
+### Security
+
+- The reason a customer gives, and the fields that come through the Admin API
+  (`enteredBy`, `note`, `externalId`), are escaped before they are saved. Before, a
+  logged-in customer with an order still open to withdrawal could inject SQL through
+  the reason field and read the database. Update now.
+- The withdrawal form carries a token and is accepted only as a POST from the order
+  page. Before, a link on another site could submit a withdrawal statement on behalf
+  of a logged-in customer.
+
 ## [0.2.3] - 2026-11-13
 
 ### Fixed

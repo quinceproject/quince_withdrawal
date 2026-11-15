@@ -37,7 +37,18 @@ class Quince_WithdrawalRequestModuleFrontController extends ModuleFrontControlle
             Tools::redirect($this->context->link->getPageLink('history'));
         }
 
-        if (Tools::isSubmit('submitWithdrawal')) {
+        // Oświadczenie jest prawnie wiążące, więc przyjmujemy je tylko z formularza
+        // tego sklepu: metoda POST i token strony. Bez tego link na obcej stronie
+        // składałby oświadczenie w imieniu zalogowanego klienta.
+        $zFormularza = Tools::isSubmit('submitWithdrawal')
+            && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST'
+            && hash_equals(Tools::getToken(false), (string) Tools::getValue('token'));
+
+        if (Tools::isSubmit('submitWithdrawal') && !$zFormularza) {
+            $this->errors[] = $this->trans('We could not accept this form. Please reload the page and try again.', [], 'Modules.Quincewithdrawal.Shop');
+        }
+
+        if ($zFormularza) {
             $repository = new Repository();
             $settings = new WithdrawalSettings();
 
